@@ -37,6 +37,11 @@ describe(Stylist) do
 
   describe('#update!') do
 
+    it("doesn't change @id") do
+      stylist = Stylist.new({:id => 1, :name => 'Jane Doe'})
+      expect(stylist.update!({:id => 4}).id).to eq(1)
+    end
+
     context('updating @name')
       it('updates @name') do
         stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})

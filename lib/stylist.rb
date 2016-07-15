@@ -30,6 +30,15 @@ class Stylist
     @id = result.getvalue(0,0).to_i
   end
 
+  def self.all
+    returned_stylists = DB.exec("SELECT * FROM stylists;")
+    stylists = []
+    returned_stylists.each do |stylist|
+      stylists.push(Stylist.new({:id => stylist['id'], :name => stylist['name'], :phone => stylist['phone'], :location => stylist['location']}))
+    end
+    stylists
+  end
+
 #   define_singleton_method(:delete_all) do
 #     DB.exec("DELETE FROM clients_stylists;")
 #     DB.exec("DELETE FROM stylists;")
@@ -40,14 +49,6 @@ class Stylist
 #     DB.exec("DELETE FROM stylists WHERE id = #{@id};")
 #   end
 #
-#   def self.all
-#     returned_stylists = DB.exec("SELECT * FROM stylists;")
-#     stylists = []
-#     returned_stylists.each do |stylist|
-#       stylists.push(Book.new({:id => stylist['id'], :name => stylist['name']}))
-#     end
-#     stylists
-#   end
 #
 #   def self.find(id)
 #     stylist = DB.exec("SELECT * FROM stylists WHERE id = #{id}").first()

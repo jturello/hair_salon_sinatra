@@ -97,7 +97,17 @@ describe(Stylist) do
       expect(result.getvalue(0,0)).to eq('Elmer Fudd')
     end
   end
-  #
+
+  describe('.all') do
+    it('returns all stylists') do
+      stylist1 = Stylist.new({:id => nil, :name => 'Jenny'})
+      stylist2 = Stylist.new({:id => nil, :name => 'Glenda'})
+      stylist1.save()
+      stylist2.save()
+      expect(Stylist.all().size).to eq(2)
+    end
+  end
+
   # describe('.delete_all') do
   #   it('deletes stored stylist objects on the database') do
   #     stylist = Stylist.new({:id => nil, :name => 'Blue'})
@@ -115,18 +125,6 @@ describe(Stylist) do
   #     stylist.delete
   #     result = DB.exec("SELECT id FROM stylists WHERE id = #{stylist.id};")
   #     expect(result.values.size()).to eq(0)
-  #   end
-  # end
-  #
-  # describe('.all') do
-  #   it('returns all stylists') do
-  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
-  #     stylist2 = Stylist.new({:id => nil, :name => 'Green'})
-  #     stylist3 = Stylist.new({:id => nil, :name => 'Yellow'})
-  #     stylist1.save()
-  #     stylist2.save()
-  #     stylist3.save()
-  #     expect(Stylist.all().size).to eq(3)
   #   end
   # end
   #

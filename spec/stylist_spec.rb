@@ -9,18 +9,24 @@ describe(Stylist) do
       expect(stylist.class).to eq(Stylist)
     end
 
-
     it('instantiates a stylist with a name') do
       stylist = Stylist.new({:name => 'Jane Doe'})
       expect(stylist.name).to eq('Jane Doe')
     end
 
-    it('throws an error when the name is nil') do
-      expect{Stylist.new({:id => nil, :name => nil})}.to raise_error(ArgumentError)
+    it('creates a stylist with a location') do
+      stylist = Stylist.new({:id => nil, :name => 'Bugs Bunny', :location => 'Beaverton'})
+      expect(stylist.location).to eq('Beaverton')
     end
 
-    it('throws an error when the name is empty string') do
-      expect{Stylist.new({:id => nil, :name => ''})}.to raise_error(ArgumentError)
+    context('throws an error when input invalid') do
+      it('when name is nil') do
+        expect{Stylist.new({:id => nil, :name => nil})}.to raise_error(ArgumentError)
+      end
+
+      it('when name is empty string') do
+        expect{Stylist.new({:id => nil, :name => ''})}.to raise_error(ArgumentError)
+      end
     end
   end
   #

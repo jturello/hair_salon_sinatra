@@ -1,15 +1,17 @@
 require('pry')
 class Stylist
 #
-  attr_reader :name, :id
+  attr_reader :name, :id, :location
 #
   define_method(:initialize) do |args|
+
+    raise ArgumentError.new('Name cannot be nil!') if args[:name] == nil
+    raise ArgumentError.new('Name cannot be an empty string!') if args[:name] == ''
+
     @id = args[:id]
     @name = args[:name]
+    @location = args[:location]
 
-    #  || args[:name] == ""
-
-      raise ArgumentError.new('Name cannot be nil!') if @name == nil
   end
 #
 #   define_method(:save) do

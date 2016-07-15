@@ -24,12 +24,12 @@ class Stylist
     return self
 
   end
-#
-#   define_method(:save) do
-#     result = DB.exec("INSERT INTO stylists (name) VALUES ('#{@name}') RETURNING id;")
-#     @id = result.getvalue(0,0).to_i
-#   end
-#
+
+  define_method(:save) do
+    result = DB.exec("INSERT INTO stylists (name, phone, location) VALUES ('#{@name}', '#{phone}', '#{location}') RETURNING id;")
+    @id = result.getvalue(0,0).to_i
+  end
+
 #   define_singleton_method(:delete_all) do
 #     DB.exec("DELETE FROM clients_stylists;")
 #     DB.exec("DELETE FROM stylists;")

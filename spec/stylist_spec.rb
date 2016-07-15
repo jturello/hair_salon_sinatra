@@ -87,20 +87,16 @@ describe(Stylist) do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
       expect(stylist.update!({:location => ''}).location).to eq('')
     end
-
   end
 
-
-
-  #
-  # describe('#save') do
-  #   it('creates/stores stylist objects on the database') do
-  #     stylist = Stylist.new({:id => nil, :name => 'Red'})
-  #     stylist.save()
-  #     result = DB.exec("SELECT name FROM stylists WHERE name = 'Red';")
-  #     expect(result.getvalue(0,0)).to eq('Red')
-  #   end
-  # end
+  describe('#save') do
+    it('inserts stylist into the database') do
+      stylist = Stylist.new({:id => nil, :name => 'Elmer Fudd'})
+      stylist.save()
+      result = DB.exec("SELECT name FROM stylists WHERE name = 'Elmer Fudd';")
+      expect(result.getvalue(0,0)).to eq('Elmer Fudd')
+    end
+  end
   #
   # describe('.delete_all') do
   #   it('deletes stored stylist objects on the database') do
@@ -159,16 +155,6 @@ describe(Stylist) do
   #     stylist3 = Stylist.new({:id => nil, :name => 'Red'})
   #     stylist3.save
   #     expect(stylist1).not_to eq(Stylist.find(stylist3.id))
-  #   end
-  # end
-  #
-  # describe('#update_name') do
-  #   it('will change the name of the stylist') do
-  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
-  #     stylist1.save()
-  #     stylist1.update_name!('Green')
-  #     stylist2 = Stylist.find(stylist1.id)
-  #     expect(stylist2.name).to eq('Green')
   #   end
   # end
   #

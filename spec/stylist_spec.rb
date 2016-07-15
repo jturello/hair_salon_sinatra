@@ -10,7 +10,7 @@ describe(Stylist) do
     end
 
     it('instantiates a stylist with a name') do
-      stylist = Stylist.new({:name => 'Jane Doe'})
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
       expect(stylist.name).to eq('Jane Doe')
     end
 
@@ -21,7 +21,7 @@ describe(Stylist) do
 
     it('creates a stylist with a phone number') do
       stylist = Stylist.new({:id => nil, :name => 'Bugs Bunny', :location => 'Beaverton', :phone => '503-111-2222'})
-      expect(stylist.phone).to eq('503-111-2222')      
+      expect(stylist.phone).to eq('503-111-2222')
     end
 
     context('throws an error when input invalid') do
@@ -34,6 +34,14 @@ describe(Stylist) do
       end
     end
   end
+
+  describe('#update!') do
+    it('updates @name') do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+      expect(stylist.update!({:name => 'Jack Flack'}).name).to eq('Jack Flack')
+    end
+  end
+
   #
   # describe('#save') do
   #   it('creates/stores stylist objects on the database') do

@@ -3,7 +3,7 @@ class Stylist
 #
   attr_reader :name, :id, :location, :phone
 #
-  define_method(:initialize) do |args|
+  def initialize(args)
 
     raise ArgumentError.new('Name cannot be nil!') if args[:name] == nil
     raise ArgumentError.new('Name cannot be an empty string!') if args[:name] == ''
@@ -12,6 +12,14 @@ class Stylist
     @name = args[:name]
     @location = args[:location]
     @phone = args[:phone]
+
+  end
+
+
+  def update!(args)
+    @name = args[:name]
+
+    return self
 
   end
 #
@@ -47,11 +55,6 @@ class Stylist
 #
 #   def ==(other)
 #     (@id == other.id) && (@name == other.name)
-#   end
-#
-#   def update_name!(new_name)
-#     @name = new_name
-#     DB.exec("UPDATE stylists SET name = '#{@name}' WHERE id = #{@id}")
 #   end
 #
 #   def add_clients(args)

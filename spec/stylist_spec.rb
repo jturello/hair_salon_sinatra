@@ -108,15 +108,17 @@ describe(Stylist) do
     end
   end
 
-  # describe('.delete_all') do
-  #   it('deletes stored stylist objects on the database') do
-  #     stylist = Stylist.new({:id => nil, :name => 'Blue'})
-  #     stylist.save()
-  #     Stylist.delete_all
-  #     result = DB.exec("SELECT * FROM stylists;")
-  #     expect(result.values.size()).to eq(0)
-  #   end
-  # end
+  describe('.delete_all') do
+    it('deletes stylists from the database') do
+      stylist1 = Stylist.new({:id => nil, :name => 'Glenda', :location => 'Bend'})
+      stylist2 = Stylist.new({:id => nil, :name => 'Glenda', :location => 'Bend'})
+      stylist1.save()
+      stylist2.save()
+      Stylist.delete_all
+      result = DB.exec("SELECT * FROM stylists;")
+      expect(result.values.size()).to eq(0)
+    end
+  end
   #
   # describe('#delete') do
   #   it('deletes a stylist from the database') do

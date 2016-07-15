@@ -18,6 +18,8 @@ class Stylist
 
   def update!(args)
     @name = args[:name] unless args[:name].nil? || args[:name] == ""
+    @phone = args[:phone]
+    @location = args[:location]
 
     return self
 

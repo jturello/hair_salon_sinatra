@@ -35,6 +35,7 @@ describe(Stylist) do
     end
   end
 
+
   describe('#update!') do
 
     it("doesn't change @id") do
@@ -42,26 +43,54 @@ describe(Stylist) do
       expect(stylist.update!({:id => 4}).id).to eq(1)
     end
 
-    context('updating @name')
-      it('updates @name') do
-        stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
-        expect(stylist.update!({:name => 'Jack Flack'}).name).to eq('Jack Flack')
-      end
+    it('updates @name') do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+      expect(stylist.update!({:name => 'Jack Flack'}).name).to eq('Jack Flack')
+    end
 
-      it("doesn't change @name to nil") do
-        stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
-        expect(stylist.update!({:name => nil}).name).to eq('Jane Doe')
-      end
+    it("doesn't change @name to nil") do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+      expect(stylist.update!({:name => nil}).name).to eq('Jane Doe')
+    end
 
-      it("doesn't change @name to empty string") do
-        stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
-        expect(stylist.update!({:name => ''}).name).to eq('Jane Doe')
-      end
+    it("won't set @name to empty string") do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+      expect(stylist.update!({:name => ''}).name).to eq('Jane Doe')
+    end
 
-    # context('updating ') do
+    it('updates @phone') do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
+      expect(stylist.update!({:phone => '512-555-5555'}).phone).to eq('512-555-5555')
+    end
 
-    # end
+    it('allows @phone to be nil') do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
+      expect(stylist.update!({:phone => nil}).phone).to eq(nil)
+    end
+
+    it('allows @phone to be empty string') do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
+      expect(stylist.update!({:phone => ''}).phone).to eq('')
+    end
+
+    it('updates @location') do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
+      expect(stylist.update!({:location => 'Hillsboro'}).location).to eq('Hillsboro')
+    end
+
+    it('allows @location to be nil') do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
+      expect(stylist.update!({:location => nil}).location).to eq(nil)
+    end
+
+    it('allows @phone to be empty string') do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
+      expect(stylist.update!({:location => ''}).location).to eq('')
+    end
+
   end
+
+
 
   #
   # describe('#save') do

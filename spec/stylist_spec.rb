@@ -24,7 +24,7 @@ describe(Stylist) do
       expect(stylist.phone).to eq('503-111-2222')
     end
 
-    context('throws an error when input invalid') do
+    context('throws an error') do
       it('when name is nil') do
         expect{Stylist.new({:id => nil, :name => nil})}.to raise_error(ArgumentError)
       end
@@ -37,20 +37,25 @@ describe(Stylist) do
 
   describe('#update!') do
 
-    it('updates @name') do
-      stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
-      expect(stylist.update!({:name => 'Jack Flack'}).name).to eq('Jack Flack')
-    end
+    context('updating @name')
+      it('updates @name') do
+        stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+        expect(stylist.update!({:name => 'Jack Flack'}).name).to eq('Jack Flack')
+      end
 
-    it("doesn't change @name to nil") do
-      stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
-      expect(stylist.update!({:name => nil}).name).to eq('Jane Doe')
-    end
+      it("doesn't change @name to nil") do
+        stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+        expect(stylist.update!({:name => nil}).name).to eq('Jane Doe')
+      end
 
-    it("doesn't change @name to empty string") do
-      stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
-      expect(stylist.update!({:name => ''}).name).to eq('Jane Doe')
-    end
+      it("doesn't change @name to empty string") do
+        stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+        expect(stylist.update!({:name => ''}).name).to eq('Jane Doe')
+      end
+
+    # context('updating ') do
+
+    # end
   end
 
   #

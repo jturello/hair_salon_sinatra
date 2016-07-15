@@ -118,6 +118,7 @@ describe(Stylist) do
       result = DB.exec("SELECT * FROM stylists;")
       expect(result.values.size()).to eq(0)
     end
+
   end
   #
   # describe('#delete') do

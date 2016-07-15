@@ -1,11 +1,16 @@
+require('pry')
 class Stylist
 #
-#   attr_reader :name, :id
+  attr_reader :name, :id
 #
-#   define_method(:initialize) do |args|
-#     @id = args[:id]
-#     @name = args[:name]
-#   end
+  define_method(:initialize) do |args|
+    @id = args[:id]
+    @name = args[:name]
+
+    #  || args[:name] == ""
+
+      raise ArgumentError.new('Name cannot be nil!') if @name == nil
+  end
 #
 #   define_method(:save) do
 #     result = DB.exec("INSERT INTO stylists (name) VALUES ('#{@name}') RETURNING id;")

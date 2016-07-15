@@ -3,35 +3,39 @@ require('spec_helper')
 describe(Stylist) do
 
   describe('#initialize') do
+
     it('instantiates a stylist object') do
-      stylist = Stylist.new()
+      stylist = Stylist.new({:id => 1, :name => 'Joan of Arch'})
       expect(stylist.class).to eq(Stylist)
     end
-  end
 
-  #   it('instantiates a stylist with a title') do
-  #     stylist = Stylist.new({:title => 'Cat in the Hat'})
-  #     expect(stylist.title).to eq('Cat in the Hat')
-  #   end
-  #
-  #   it('instantiates a stylist with an id') do
-  #     stylist = Stylist.new({:id => 1, :title => 'Red'})
-  #     expect(stylist.id).not_to eq(nil)
-  #   end
-  # end
+
+    it('instantiates a stylist with a name') do
+      stylist = Stylist.new({:name => 'Jane Doe'})
+      expect(stylist.name).to eq('Jane Doe')
+    end
+
+    it('throws an error when the name is nil') do
+      expect{Stylist.new({:id => nil, :name => nil})}.to raise_error(ArgumentError)
+    end
+
+    it('throws an error when the name is empty string') do
+      expect{Stylist.new({:id => nil, :name => ''})}.to raise_error(ArgumentError)
+    end
+  end
   #
   # describe('#save') do
   #   it('creates/stores stylist objects on the database') do
-  #     stylist = Stylist.new({:id => nil, :title => 'Red'})
+  #     stylist = Stylist.new({:id => nil, :name => 'Red'})
   #     stylist.save()
-  #     result = DB.exec("SELECT title FROM stylists WHERE title = 'Red';")
+  #     result = DB.exec("SELECT name FROM stylists WHERE name = 'Red';")
   #     expect(result.getvalue(0,0)).to eq('Red')
   #   end
   # end
   #
   # describe('.delete_all') do
   #   it('deletes stored stylist objects on the database') do
-  #     stylist = Stylist.new({:id => nil, :title => 'Blue'})
+  #     stylist = Stylist.new({:id => nil, :name => 'Blue'})
   #     stylist.save()
   #     Stylist.delete_all
   #     result = DB.exec("SELECT * FROM stylists;")
@@ -41,7 +45,7 @@ describe(Stylist) do
   #
   # describe('#delete') do
   #   it('deletes a stylist from the database') do
-  #     stylist = Stylist.new({:id => nil, :title => 'Green'})
+  #     stylist = Stylist.new({:id => nil, :name => 'Green'})
   #     stylist.save()
   #     stylist.delete
   #     result = DB.exec("SELECT id FROM stylists WHERE id = #{stylist.id};")
@@ -51,9 +55,9 @@ describe(Stylist) do
   #
   # describe('.all') do
   #   it('returns all stylists') do
-  #     stylist1 = Stylist.new({:id => nil, :title => 'Red'})
-  #     stylist2 = Stylist.new({:id => nil, :title => 'Green'})
-  #     stylist3 = Stylist.new({:id => nil, :title => 'Yellow'})
+  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
+  #     stylist2 = Stylist.new({:id => nil, :name => 'Green'})
+  #     stylist3 = Stylist.new({:id => nil, :name => 'Yellow'})
   #     stylist1.save()
   #     stylist2.save()
   #     stylist3.save()
@@ -63,8 +67,8 @@ describe(Stylist) do
   #
   # describe('.find') do
   #   it('returns the stylist with the input id') do
-  #     stylist1 = Stylist.new({:id => nil, :title => 'Red'})
-  #     stylist2 = Stylist.new({:id => nil, :title => 'Green'})
+  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
+  #     stylist2 = Stylist.new({:id => nil, :name => 'Green'})
   #     stylist1.save()
   #     stylist2.save()
   #     expect(Stylist.find(stylist2.id)).to eq(stylist2)
@@ -72,36 +76,36 @@ describe(Stylist) do
   # end
   #
   # describe('#==') do
-  #   it('returns true if the objects @id and @title are equal') do
-  #     stylist1 = Stylist.new({:id => nil, :title => 'Red'})
+  #   it('returns true if the objects @id and @name are equal') do
+  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
   #     stylist1.save()
   #     stylist2 = Stylist.find(stylist1.id)
   #     expect(stylist1).to eq(Stylist.find(stylist2.id))
   #   end
   #
-  #   it('returns false if the objects @id and @title are not equal') do
-  #     stylist1 = Stylist.new({:id => nil, :title => 'Red'})
+  #   it('returns false if the objects @id and @name are not equal') do
+  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
   #     stylist1.save()
   #     stylist2 = Stylist.find(stylist1.id)
-  #     stylist3 = Stylist.new({:id => nil, :title => 'Red'})
+  #     stylist3 = Stylist.new({:id => nil, :name => 'Red'})
   #     stylist3.save
   #     expect(stylist1).not_to eq(Stylist.find(stylist3.id))
   #   end
   # end
   #
-  # describe('#update_title') do
-  #   it('will change the title of the stylist') do
-  #     stylist1 = Stylist.new({:id => nil, :title => 'Red'})
+  # describe('#update_name') do
+  #   it('will change the name of the stylist') do
+  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
   #     stylist1.save()
-  #     stylist1.update_title!('Green')
+  #     stylist1.update_name!('Green')
   #     stylist2 = Stylist.find(stylist1.id)
-  #     expect(stylist2.title).to eq('Green')
+  #     expect(stylist2.name).to eq('Green')
   #   end
   # end
   #
   # describe('#add_clients') do
   #   it("let's user associate clients with stylists") do
-  #     stylist = Stylist.new({:id => nil, :title => "The Hobbit"})
+  #     stylist = Stylist.new({:id => nil, :name => "The Hobbit"})
   #     stylist.save()
   #     tolkien = Author.new({:id => nil, :name => 'J.R.R Tolkien'})
   #     tolkien.save()

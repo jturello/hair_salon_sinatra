@@ -17,7 +17,7 @@ class Stylist
 
 
   def update!(args)
-    @name = args[:name]
+    @name = args[:name] unless args[:name].nil? || args[:name] == ""
 
     return self
 

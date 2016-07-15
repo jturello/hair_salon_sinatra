@@ -19,6 +19,11 @@ describe(Stylist) do
       expect(stylist.location).to eq('Beaverton')
     end
 
+    it('creates a stylist with a phone number') do
+      stylist = Stylist.new({:id => nil, :name => 'Bugs Bunny', :location => 'Beaverton', :phone => '503-111-2222'})
+      expect(stylist.phone).to eq('503-111-2222')      
+    end
+
     context('throws an error when input invalid') do
       it('when name is nil') do
         expect{Stylist.new({:id => nil, :name => nil})}.to raise_error(ArgumentError)

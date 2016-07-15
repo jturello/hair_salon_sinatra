@@ -1,7 +1,7 @@
 require('pry')
 class Stylist
 #
-  attr_reader :name, :id, :location
+  attr_reader :name, :id, :location, :phone
 #
   define_method(:initialize) do |args|
 
@@ -11,6 +11,7 @@ class Stylist
     @id = args[:id]
     @name = args[:name]
     @location = args[:location]
+    @phone = args[:phone]
 
   end
 #

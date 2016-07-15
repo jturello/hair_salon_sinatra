@@ -40,7 +40,7 @@ class Stylist
   end
 
   define_singleton_method(:delete_all) do
-    # DB.exec("DELETE FROM clients_stylists;")
+    DB.exec("DELETE FROM clients;")
     DB.exec("DELETE FROM stylists;")
   end
 

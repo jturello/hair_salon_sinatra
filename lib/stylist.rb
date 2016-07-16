@@ -57,21 +57,18 @@ class Stylist
   def ==(other)
     (@id == other.id) && (@name == other.name)
   end
-#
-#   def add_clients(args)
-#      client = args[:client]
-#      DB.exec("INSERT INTO clients_stylists (client_id, stylist_id) VALUES  (#{client.id}, #{self.id});")
-#    end
-#
-#    def clients()
-#      clients = []
-#      results = DB.exec("SELECT client_id FROM clients_stylists WHERE stylist_id = #{self.id};")
-#      results.each() do |result|
-#        client_id = result.fetch("client_id").to_i
-#        client = DB.exec("SELECT name FROM clients WHERE id = #{client_id};")
-#        name = client.first().fetch("name")
-#        clients.push(Author.new({:id => client_id, :name => name}))
-#      end
-#      clients
-#    end
+
+  def add_client(args)
+    client = args[:client]
+    DB.exec("UPDATE clients SET stylist_id = #{@id} WHERE id = #{client.id}")
+  end
+
+   def clients()
+     clients = []
+     results = DB.exec("SELECT * FROM clients WHERE stylist_id = #{self.id};")
+     results.each() do |result|
+       clients.push(Client.new({:id => result['id'].to_i, :name => result['name'], :phone => result['phone'], :location => result['location'], :stylist_id => result['stylist_id']}))
+     end
+     clients
+   end
 end

@@ -154,23 +154,23 @@ describe(Stylist) do
     end
 
     it('returns false if the objects @id and @name are not equal') do
-      stylist1 = Stylist.new({:id => nil, :name => 'Red'})
+      stylist1 = Stylist.new({:id => nil, :name => 'Savin McCloud'})
       stylist1.save()
       stylist2 = Stylist.find(stylist1.id)
-      stylist3 = Stylist.new({:id => nil, :name => 'Red'})
+      stylist3 = Stylist.new({:id => nil, :name => 'Savin McCloud'})
       stylist3.save
       expect(stylist1).not_to eq(Stylist.find(stylist3.id))
     end
   end
-  #
-  # describe('#add_clients') do
-  #   it("let's user associate clients with stylists") do
-  #     stylist = Stylist.new({:id => nil, :name => "The Hobbit"})
-  #     stylist.save()
-  #     tolkien = Author.new({:id => nil, :name => 'J.R.R Tolkien'})
-  #     tolkien.save()
-  #     stylist.add_clients({:client => tolkien})
-  #     expect(stylist.clients()).to eq([tolkien])
-  #   end
-  # end
+
+  describe('#add_client') do
+    it("let's user associate clients with stylists") do
+      stylist = Stylist.new({:id => nil, :name => "Brenda Lee Johnson"})
+      stylist.save()
+      client_dude = Client.new({:id => nil, :name => 'Lenard Ripchen'})
+      client_dude.save()
+      stylist.add_client({:client => client_dude})
+      expect(stylist.clients()).to eq([client_dude])
+    end
+  end
 end

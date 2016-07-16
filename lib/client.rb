@@ -1,17 +1,20 @@
 class Client
 #
-  attr_reader :name, :id, :stylist_id
+  attr_reader :name, :id, :phone, :location, :stylist_id
 #
   def initialize(args)
+    @phone = ""
+    @location = ""
+
     @id = args[:id]
     @name = args[:name]
-    @phone = args[:phone]
-    @location = args[:location]
-    @stylist_id = args[:stylist_id]
+    @phone ||= args[:phone]
+    @location ||= args[:location]
+    @stylist_id = nil  #args[:stylist_id]
   end
 
-  define_method(:save) do
-    result = DB.exec("INSERT INTO clients (name, phone, location, stylist_id) VALUES ('#{@name}', '#{@phone}', '#{@location}', '#{@stylist_id}') RETURNING id;")
+  def save()
+    result = DB.exec("INSERT INTO clients (name, phone, location) VALUES ('#{@name}', '#{@phone}', '#{@location}') RETURNING id;")
     @id = result.getvalue(0,0).to_i
   end
 #
@@ -37,9 +40,9 @@ class Client
 #     return Client.new({id: client['id'].to_i, name: client['name']})
 #   end
 #
-#   def ==(other)
-#     (@id == other.id) && (@name == other.name)
-#   end
+  def ==(other)
+    (@id == other.id) && (@name == other.name) && (@phone == other.phone) && (@location == other.location) && (@stylist_id == other.stylist_id)
+  end
 #
 #   def update_name!(new_name)
 #     @name = new_name

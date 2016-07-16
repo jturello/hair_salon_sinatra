@@ -118,19 +118,20 @@ describe(Stylist) do
       result = DB.exec("SELECT * FROM stylists;")
       expect(result.values.size()).to eq(0)
     end
-
   end
-  #
-  # describe('#delete') do
-  #   it('deletes a stylist from the database') do
-  #     stylist = Stylist.new({:id => nil, :name => 'Green'})
-  #     stylist.save()
-  #     stylist.delete
-  #     result = DB.exec("SELECT id FROM stylists WHERE id = #{stylist.id};")
-  #     expect(result.values.size()).to eq(0)
-  #   end
-  # end
-  #
+
+  describe('#delete') do
+    it('deletes a stylist from the database') do
+      stylist = Stylist.new({:id => nil, :name => 'Jack Green'})
+      stylist.save()
+      result1 = DB.exec("SELECT name FROM stylists WHERE id = #{stylist.id};")
+      stylist.delete
+      result2 = DB.exec("SELECT name FROM stylists WHERE id = #{stylist.id};")
+      expect(result1.values).to eq([["Jack Green"]])
+      expect(result2.values).to eq([])
+    end
+  end
+
   # describe('.find') do
   #   it('returns the stylist with the input id') do
   #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})

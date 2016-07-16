@@ -44,10 +44,10 @@ class Stylist
     DB.exec("DELETE FROM stylists;")
   end
 
-#   define_method(:delete) do
-#     DB.exec("DELETE FROM clients_stylists WHERE stylist_id = #{@id};")
-#     DB.exec("DELETE FROM stylists WHERE id = #{@id};")
-#   end
+  define_method(:delete) do
+    # DB.exec("DELETE FROM clients_stylists WHERE stylist_id = #{@id};")
+    DB.exec("DELETE FROM stylists WHERE id = #{@id};")
+  end
 #
 #
 #   def self.find(id)

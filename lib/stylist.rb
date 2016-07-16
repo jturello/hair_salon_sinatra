@@ -55,7 +55,7 @@ class Stylist
   end
 
   def ==(other)
-    (@id == other.id) && (@name == other.name)
+    (@id == other.id) && (@name == other.name) && (@phone == other.phone) && (@location == other.location)
   end
 
   def add_client(args)

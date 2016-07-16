@@ -53,7 +53,7 @@ describe(Stylist) do
       expect(stylist.update!({:name => nil}).name).to eq('Jane Doe')
     end
 
-    it("won't set @name to empty string") do
+    it("doesn't set @name to empty string") do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
       expect(stylist.update!({:name => ''}).name).to eq('Jane Doe')
     end
@@ -137,8 +137,8 @@ describe(Stylist) do
 
   describe('.find') do
     it('returns the stylist with the input id') do
-      stylist1 = Stylist.new({:id => nil, :name => 'Joe Montana'})
-      stylist2 = Stylist.new({:id => nil, :name => 'Brenda Lee Johnson'})
+      stylist1 = Stylist.new({:id => nil, :name => 'Joe Montana', :phone => '503-333-4444', :location => 'Beavertonia'})
+      stylist2 = Stylist.new({:id => nil, :name => 'Brenda Lee Johnson', :phone => '234-123-4567', :location => 'Portland'})
       stylist1.save()
       stylist2.save()
       expect(Stylist.find(stylist2.id)).to eq(stylist2)
@@ -146,8 +146,23 @@ describe(Stylist) do
   end
 
   describe('#==') do
-    it('returns true if the objects @id and @name are equal') do
-      stylist1 = Stylist.new({:id => nil, :name => 'Jack Johsnon'})
+    it('returns true if the @id, @name, @phone, and @location are equal') do
+      stylist1 = Stylist.new({:id => nil, :name => 'Jack Johsnon', :phone => '503-333-4444', :location => 'Beavertonia'})
+      stylist1.save()
+      stylist2 = Stylist.find(stylist1.id)
+      expect(stylist1).to eq(Stylist.find(stylist2.id))
+    end
+
+    it('returns true if @id, @name, & @phone equal and @location is blank (nil)')do
+      stylist1 = Stylist.new({:id => nil, :name => 'Jack Johsnon', :phone => '503-333-4444'})
+      stylist1.save()
+      stylist2 = Stylist.find(stylist1.id)
+      expect(stylist1).to eq(Stylist.find(stylist2.id))
+    end
+
+
+    it('returns true if @id, @name, & @location equal and @phone is blank (nil)')do
+      stylist1 = Stylist.new({:id => nil, :name => 'Jack Johsnon', :location => 'Beavertonia'})
       stylist1.save()
       stylist2 = Stylist.find(stylist1.id)
       expect(stylist1).to eq(Stylist.find(stylist2.id))

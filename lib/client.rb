@@ -10,7 +10,7 @@ class Client
     @name = args[:name]
     @phone ||= args[:phone]
     @location ||= args[:location]
-    #stylist_id always set to nil to limit access as it's the foreign key in DB,
+    #stylist_id always set to nil here  to limit access as it's the foreign key in DB,
     #it is only set programmatically in styist#add_client
     @stylist_id = nil  #args[:stylist_id]
   end

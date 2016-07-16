@@ -102,4 +102,4 @@ describe(Client) do
 #       expect(client2.name).to eq('Green')
 #     end
 #   end
-# end
+end

@@ -10,23 +10,21 @@ class Stylist
 
     @id = args[:id]
     @name = args[:name]
-    @location = args[:location]
-    @phone = args[:phone]
+    # if args for :phone or :location not supplied, set to ""
+    args[:phone] == nil ? @phone = "" : @phone = args[:phone]
+    args[:location] == nil ? @location = "" : @location = args[:location]
 
   end
-
 
   def update!(args)
     @name = args[:name] unless args[:name].nil? || args[:name] == ""
     @phone = args[:phone]
     @location = args[:location]
-
     return self
-
   end
 
   define_method(:save) do
-    result = DB.exec("INSERT INTO stylists (name, phone, location) VALUES ('#{@name}', '#{phone}', '#{location}') RETURNING id;")
+    result = DB.exec("INSERT INTO stylists (name, phone, location) VALUES ('#{@name}', '#{@phone}', '#{@location}') RETURNING id;")
     @id = result.getvalue(0,0).to_i
   end
 
@@ -51,7 +49,7 @@ class Stylist
 
   def self.find(id)
     stylist = DB.exec("SELECT * FROM stylists WHERE id = #{id}").first()
-    stylist_obj = Stylist.new({id: stylist['id'].to_i, name: stylist['name']})
+    stylist_obj = Stylist.new({:id => stylist['id'].to_i, :name => stylist['name'], :phone => stylist['phone'], :location => stylist['location']})
   end
 
   def ==(other)

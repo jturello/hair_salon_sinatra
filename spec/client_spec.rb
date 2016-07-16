@@ -1,10 +1,6 @@
-# require('spec_helper')
-#
-# describe(Client) do
-#
-#   before(:each) do
-#     Client.delete_all()
-#   end
+require('spec_helper')
+
+describe(Client) do
 #
 #   describe('#initialize') do
 #     it('instantiates an client object') do

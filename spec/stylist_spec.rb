@@ -133,36 +133,35 @@ describe(Stylist) do
       expect(result1.values).to eq([["Jack Green"]])
       expect(result2.values).to eq([])
     end
-
   end
 
-  # describe('.find') do
-  #   it('returns the stylist with the input id') do
-  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
-  #     stylist2 = Stylist.new({:id => nil, :name => 'Green'})
-  #     stylist1.save()
-  #     stylist2.save()
-  #     expect(Stylist.find(stylist2.id)).to eq(stylist2)
-  #   end
-  # end
-  #
-  # describe('#==') do
-  #   it('returns true if the objects @id and @name are equal') do
-  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
-  #     stylist1.save()
-  #     stylist2 = Stylist.find(stylist1.id)
-  #     expect(stylist1).to eq(Stylist.find(stylist2.id))
-  #   end
-  #
-  #   it('returns false if the objects @id and @name are not equal') do
-  #     stylist1 = Stylist.new({:id => nil, :name => 'Red'})
-  #     stylist1.save()
-  #     stylist2 = Stylist.find(stylist1.id)
-  #     stylist3 = Stylist.new({:id => nil, :name => 'Red'})
-  #     stylist3.save
-  #     expect(stylist1).not_to eq(Stylist.find(stylist3.id))
-  #   end
-  # end
+  describe('.find') do
+    it('returns the stylist with the input id') do
+      stylist1 = Stylist.new({:id => nil, :name => 'Joe Montana'})
+      stylist2 = Stylist.new({:id => nil, :name => 'Brenda Lee Johnson'})
+      stylist1.save()
+      stylist2.save()
+      expect(Stylist.find(stylist2.id)).to eq(stylist2)
+    end
+  end
+
+  describe('#==') do
+    it('returns true if the objects @id and @name are equal') do
+      stylist1 = Stylist.new({:id => nil, :name => 'Jack Johsnon'})
+      stylist1.save()
+      stylist2 = Stylist.find(stylist1.id)
+      expect(stylist1).to eq(Stylist.find(stylist2.id))
+    end
+
+    it('returns false if the objects @id and @name are not equal') do
+      stylist1 = Stylist.new({:id => nil, :name => 'Red'})
+      stylist1.save()
+      stylist2 = Stylist.find(stylist1.id)
+      stylist3 = Stylist.new({:id => nil, :name => 'Red'})
+      stylist3.save
+      expect(stylist1).not_to eq(Stylist.find(stylist3.id))
+    end
+  end
   #
   # describe('#add_clients') do
   #   it("let's user associate clients with stylists") do

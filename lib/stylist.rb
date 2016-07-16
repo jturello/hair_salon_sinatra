@@ -48,17 +48,15 @@ class Stylist
     DB.exec("DELETE FROM clients WHERE stylist_id = #{@id};")
     DB.exec("DELETE FROM stylists WHERE id = #{@id};")
   end
-#
-#
-#   def self.find(id)
-#     stylist = DB.exec("SELECT * FROM stylists WHERE id = #{id}").first()
-#     stylist_obj = Book.new({id: stylist['id'].to_i, name: stylist['name']})
-#
-#   end
-#
-#   def ==(other)
-#     (@id == other.id) && (@name == other.name)
-#   end
+
+  def self.find(id)
+    stylist = DB.exec("SELECT * FROM stylists WHERE id = #{id}").first()
+    stylist_obj = Stylist.new({id: stylist['id'].to_i, name: stylist['name']})
+  end
+
+  def ==(other)
+    (@id == other.id) && (@name == other.name)
+  end
 #
 #   def add_clients(args)
 #      client = args[:client]

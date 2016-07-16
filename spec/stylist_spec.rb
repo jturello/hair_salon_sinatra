@@ -121,15 +121,19 @@ describe(Stylist) do
   end
 
   describe('#delete') do
+
     it('deletes a stylist from the database') do
       stylist = Stylist.new({:id => nil, :name => 'Jack Green'})
       stylist.save()
+      client = Client.new({:id => nil, :name => "Joe", :stylist_id => stylist.id})
+      client.save
       result1 = DB.exec("SELECT name FROM stylists WHERE id = #{stylist.id};")
       stylist.delete
       result2 = DB.exec("SELECT name FROM stylists WHERE id = #{stylist.id};")
       expect(result1.values).to eq([["Jack Green"]])
       expect(result2.values).to eq([])
     end
+
   end
 
   # describe('.find') do

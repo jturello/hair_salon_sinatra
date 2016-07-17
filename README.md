@@ -26,8 +26,8 @@ This webpage is hosted at and can be viewed at the following url: [XXXXXXXXXX](h
  * Run the following SQL commands in terminal...XXXXX
  * CREATE DATABASE hair_salon;
  * \c hair_salon
- * CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR, phone VARCHAR, location VARCHAR);
- * CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR, phone VARCHAR, location VARCHAR, stylist_id INT REFERENCES stylists(id));
+ * CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR NOT NULL, phone VARCHAR, location VARCHAR);
+ * CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR NOT NULL, phone VARCHAR, location VARCHAR, stylist_id INT REFERENCES stylists(id));
  * CREATE DATABASE hair_salon_test WITH TEMPLATE hair_salon;
 
 ## Known Bugs

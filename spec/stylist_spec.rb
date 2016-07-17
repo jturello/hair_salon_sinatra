@@ -153,7 +153,7 @@ describe(Stylist) do
       expect(stylist1).to eq(Stylist.find(stylist2.id))
     end
 
-    it('returns true if @id, @name, & @phone equal and @location is blank (nil)')do
+    it('returns true if @id, @name, & @phone equal and @location is not set')do
       stylist1 = Stylist.new({:id => nil, :name => 'Jack Johsnon', :phone => '503-333-4444'})
       stylist1.save()
       stylist2 = Stylist.find(stylist1.id)
@@ -161,7 +161,7 @@ describe(Stylist) do
     end
 
 
-    it('returns true if @id, @name, & @location equal and @phone is blank (nil)')do
+    it('returns true if @id, @name, & @location equal and @phone is not set')do
       stylist1 = Stylist.new({:id => nil, :name => 'Jack Johsnon', :location => 'Beavertonia'})
       stylist1.save()
       stylist2 = Stylist.find(stylist1.id)
@@ -186,6 +186,18 @@ describe(Stylist) do
       client_dude.save()
       stylist.add_client({:client => client_dude})
       expect(stylist.clients()).to eq([client_dude])
+    end
+
+    it("let's user associate multiple clients with a stylist") do
+      stylist = Stylist.new({:id => nil, :name => "Brenda Lee Johnson", :phone => '503-543-6543', :location => 'Seattle'})
+      stylist.save()
+      client1 = Client.new({:id => nil, :name => 'Lenard Nemoy', :phone => '111-222-3333', :location => 'Honolulu'})
+      client1.save()
+      stylist.add_client({:client => client1})
+      client2 = Client.new({:id => nil, :name => 'Minny Mouse', :phone => '111-222-9876', :location => 'Disneyland'})
+      client2.save()
+      stylist.add_client({:client => client2})
+      expect(stylist.clients()).to eq([client1, client2])
     end
   end
 end

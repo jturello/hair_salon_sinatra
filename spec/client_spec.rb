@@ -34,13 +34,6 @@ describe(Client) do
       client = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
       puts returned_id = client.save()
       result = DB.exec("SELECT * FROM clients WHERE id = #{returned_id};")
-      puts "here"
-      result.each {|item| puts item}
-      puts "done"
-      puts result[0]
-      puts result[0].length
-      puts result.nfields
-      result.each_row {|row| puts row}
     end
   end
 #

@@ -1,32 +1,48 @@
 require('spec_helper')
 
 describe(Client) do
-#
-#   describe('#initialize') do
-#     it('instantiates an client object') do
-#       client = Client.new({:name => 'Mark Twain'})
-#       expect(client.class).to eq(Client)
-#     end
-#
-#     it('instantiates a client with a name') do
-#       client = Client.new({:name => 'Mark Twain'})
-#       expect(client.name).to eq('Mark Twain')
-#     end
-#
-#     it('instantiates a client with an id') do
-#       client = Client.new({:id => 1, :name => 'Michael Creighton'})
-#       expect(client.id).not_to eq(nil)
-#     end
-#   end
-#
-#   describe('#save') do
-#     it('creates/stores client objects on the database') do
-#       client = Client.new({:id => nil, :name => 'Dr. Seuss'})
-#       client.save()
-#       result = DB.exec("SELECT name FROM clients WHERE name = 'Dr. Seuss';")
-#       expect(result.getvalue(0,0)).to eq('Dr. Seuss')
-#     end
-#   end
+
+  describe('#initialize') do
+    it('instantiates an client object') do
+      client = Client.new({:name => 'Mark Twain'})
+      expect(client.class).to eq(Client)
+    end
+
+    it('instantiates a client with a name') do
+      client = Client.new({:name => 'Mark Twain'})
+      expect(client.name).to eq('Mark Twain')
+    end
+
+    it('instantiates a client with an id') do
+      client = Client.new({:id => 1, :name => 'Joe'})
+      expect(client.id).not_to eq(nil)
+    end
+
+    it('instantiates a client with a phone') do
+      client = Client.new({:name => 'Mark Twain', :phone => '503-222-3333'})
+      expect(client.phone).to eq('503-222-3333')
+    end
+
+    it('instantiates a client with an location') do
+      client = Client.new({:id => 1, :name => 'Michael Creighton', :location => 'San Diego'})
+      expect(client.location).to eq('San Diego')
+    end
+  end
+
+  describe('#save') do
+    it('creates/stores client objects on the database') do
+      client = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
+      puts returned_id = client.save()
+      result = DB.exec("SELECT * FROM clients WHERE id = #{returned_id};")
+      puts "here"
+      result.each {|item| puts item}
+      puts "done"
+      puts result[0]
+      puts result[0].length
+      puts result.nfields
+      result.each_row {|row| puts row}
+    end
+  end
 #
 #   describe('.delete_all') do
 #     it('deletes stored client objects on the database') do

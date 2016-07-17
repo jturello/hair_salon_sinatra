@@ -3,13 +3,12 @@ class Client
   attr_reader :name, :id, :phone, :location, :stylist_id
 #
   def initialize(args)
-    @phone = ""
-    @location = ""
 
     @id = args[:id]
     @name = args[:name]
-    @phone ||= args[:phone]
-    @location ||= args[:location]
+    # if args for :phone or :location not supplied, set to ""
+    args[:phone] == nil ? @phone = "" : @phone = args[:phone]
+    args[:location] == nil ? @location = "" : @location = args[:location]
     #stylist_id always set to nil here  to limit access as it's the foreign key in DB,
     #it is only set programmatically in styist#add_client
     @stylist_id = nil  #args[:stylist_id]

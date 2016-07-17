@@ -153,6 +153,14 @@ describe(Stylist) do
       expect(stylist1).to eq(Stylist.find(stylist2.id))
     end
 
+    it("returns false if the stylists' @id's aren't equal") do
+      stylist1 = Stylist.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
+      stylist2 = Stylist.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
+      stylist1.save()
+      stylist2.save()
+      expect(stylist1).not_to eq(stylist2)
+    end
+
     it('returns true if @id, @name, & @phone equal and @location is not set')do
       stylist1 = Stylist.new({:id => nil, :name => 'Jack Johsnon', :phone => '503-333-4444'})
       stylist1.save()
@@ -160,21 +168,11 @@ describe(Stylist) do
       expect(stylist1).to eq(Stylist.find(stylist2.id))
     end
 
-
     it('returns true if @id, @name, & @location equal and @phone is not set')do
       stylist1 = Stylist.new({:id => nil, :name => 'Jack Johsnon', :location => 'Beavertonia'})
       stylist1.save()
       stylist2 = Stylist.find(stylist1.id)
       expect(stylist1).to eq(Stylist.find(stylist2.id))
-    end
-
-    it('returns false if the objects @id and @name are not equal') do
-      stylist1 = Stylist.new({:id => nil, :name => 'Savin McCloud'})
-      stylist1.save()
-      stylist2 = Stylist.find(stylist1.id)
-      stylist3 = Stylist.new({:id => nil, :name => 'Savin McCloud'})
-      stylist3.save
-      expect(stylist1).not_to eq(Stylist.find(stylist3.id))
     end
   end
 

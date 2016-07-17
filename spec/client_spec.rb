@@ -32,10 +32,66 @@ describe(Client) do
   describe('#save') do
     it('creates/stores client objects on the database') do
       client = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
-      puts returned_id = client.save()
+      returned_id = client.save()
       result = DB.exec("SELECT * FROM clients WHERE id = #{returned_id};")
     end
   end
+
+  describe('.all') do
+
+    it('returns all clients') do
+      client1 = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
+      client2 = Client.new({:id => nil, :name => 'Janet Jones', :phone => '503-555-4444'})
+      client3 = Client.new({:id => nil, :name => 'Italo Calvino', :location => 'Roma'})
+      client1.save()
+      client2.save()
+      client3.save()
+      expect(Client.all()).to eq([client1, client2, client3])
+    end
+  end
+
+  describe('#==') do
+
+    it("returns true if the clients' @id/@name/@phone/@location/@stylist_id are equal") do
+      client1 = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
+      client1.save()
+      expect(client1).to eq(Client.find(client1.id))
+    end
+
+    it("returns false if the clients' @id's aren't equal") do
+      client1 = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
+      client2 = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
+      client1.save()
+      client2.save()
+      expect(client1).not_to eq(client2)
+    end
+
+    it('returns true if @id, @name, & @phone equal and @location is not set')do
+      client1 = Client.new({:id => nil, :name => 'Jack Johsnon', :phone => '503-333-4444'})
+      client1.save()
+      client2 = Client.find(client1.id)
+      expect(client1).to eq(Client.find(client2.id))
+    end
+
+    it('returns true if @id, @name, & @location equal and @phone is not set')do
+      client1 = Client.new({:id => nil, :name => 'Jack Johsnon', :location => 'Beavertonia'})
+      client1.save()
+      client2 = Client.find(client1.id)
+      expect(client1).to eq(Client.find(client2.id))
+    end
+  end
+
+  describe('.find') do
+
+    it('returns the client with the input id') do
+      client1 = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
+      client2 = Client.new({:id => nil, :name => 'Dudely Doolittle', :location => 'Beaverton'})
+      client1.save()
+      client2.save()
+      expect(Client.find(client2.id)).to eq(client2)
+    end
+  end
+
 #
 #   describe('.delete_all') do
 #     it('deletes stored client objects on the database') do
@@ -59,48 +115,6 @@ describe(Client) do
 #     end
 #   end
 #
-#   describe('.all') do
-#
-#     it('returns all clients') do
-#       client1 = Client.new({:id => nil, :name => 'Tom'})
-#       client2 = Client.new({:id => nil, :name => 'Dick'})
-#       client3 = Client.new({:id => nil, :name => 'Harry'})
-#       client1.save()
-#       client2.save()
-#       client3.save()
-#       expect(Client.all().size).to eq(3)
-#     end
-#   end
-#
-#   describe('.find') do
-#
-#     it('returns the client with the input id') do
-#       client1 = Client.new({:id => nil, :name => 'Red'})
-#       client2 = Client.new({:id => nil, :name => 'Green'})
-#       client1.save()
-#       client2.save()
-#       expect(Client.find(client2.id)).to eq(client2)
-#     end
-#   end
-#
-#   describe('#==') do
-#
-#     it('returns true if the client objects @id and @title are equal') do
-#       client1 = Client.new({:id => nil, :name => 'Red'})
-#       client1.save()
-#       client2 = Client.find(client1.id)
-#       expect(client1).to eq(Client.find(client2.id))
-#     end
-#
-#     it('returns false if the objects @id and @name are not equal') do
-#       client1 = Client.new({:id => nil, :name => 'Red'})
-#       client1.save()
-#       client2 = Client.find(client1.id)
-#       client3 = Client.new({:id => nil, :name => 'Red'})
-#       client3.save
-#       expect(client1).not_to eq(Client.find(client3.id))
-#     end
-#   end
 #
 #   describe('#update_name') do
 #     it('will change the name of the client') do

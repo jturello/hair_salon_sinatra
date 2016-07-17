@@ -11,19 +11,28 @@ class Client
     args[:location] == nil ? @location = "" : @location = args[:location]
     #stylist_id always set to nil here  to limit access as it's the foreign key in DB,
     #it is only set programmatically in styist#add_client
-    @stylist_id = nil 
+    @stylist_id = nil
   end
 
   def save()
     result = DB.exec("INSERT INTO clients (name, phone, location) VALUES ('#{@name}', '#{@phone}', '#{@location}') RETURNING id;")
     @id = result.getvalue(0,0).to_i
   end
-  # #
-  #   def self.find(id)
-  #     client = DB.exec("SELECT * FROM clients WHERE id = #{id}").first()
-  #     return Client.new({id: client['id'].to_i, name: client['name']})
-  #   end
-#
+
+  def self.all
+    clients = []
+    returned_clients = DB.exec("SELECT * FROM clients;")
+    returned_clients.each do |client|
+      clients.push(Client.new({:id => client['id'].to_i, :name => client['name'], :phone => client['phone'], :location => client['location']}))
+    end
+    clients
+  end
+
+  def self.find(id)
+    client = DB.exec("SELECT * FROM clients WHERE id = #{id}").first()
+    return Client.new({:id => client['id'].to_i, :name => client['name'], :phone => client['phone'], :location => client['location']})
+  end
+
 #   define_singleton_method(:delete_all) do
 #     DB.exec("DELETE FROM clients;")
 #   end
@@ -32,14 +41,6 @@ class Client
 #     DB.exec("DELETE FROM clients WHERE id = #{@id};")
 #   end
 #
-#   def self.all
-#     clients = []
-#     returned_clients = DB.exec("SELECT * FROM clients;")
-#     returned_clients.each do |client|
-#       clients.push(Client.new({:id => client['id'], :name => client['name']}))
-#     end
-#     clients
-#   end
 #
   def ==(other)
     (@id == other.id) && (@name == other.name) && (@phone == other.phone) && (@location == other.location) && (@stylist_id == other.stylist_id)

@@ -17,17 +17,23 @@ class Stylist
   end
 
   def update!(args)
-    @name = args[:name] unless args[:name].nil? || args[:name] == "" # || args[:name] == " "
-    args[:phone] == nil ? @phone = "" : @phone = args[:phone]
-    args[:location] == nil ? @location = "" : @location = args[:location]
+
+    if (!(args[:name].nil?)) && (!((args[:name] == "")))
+      @name = args[:name]  #unless args[:name].nil? || args[:name] == "" # || args[:name] == " "
+      DB.exec("UPDATE stylists SET name = '#{@name}' WHERE id = #{@id}")
+    end
+
+    if (!(args[:phone].nil?))
+      @phone = args[:phone]
+      DB.exec("UPDATE stylists SET phone = '#{@phone}' WHERE id = #{@id}")
+    end
+
+    if (!(args[:location].nil?))
+      @location = args[:location]
+      DB.exec("UPDATE stylists SET location = '#{@location}' WHERE id = #{@id}")
+    end
     return self
   end
-
-  # def name=(new_name)
-  #   aise ArgumentError.new('Name cannot be nil!') if args[:name] == nil
-  #   raise ArgumentError.new("invalid input for name: " + new_name) if new_name.match(/[^a-z \-.]+|^$|^\s+$/i)
-  #   @name = new_name
-  # end
 
   def save()
     result = DB.exec("INSERT INTO stylists (name, phone, location) VALUES ('#{@name}', '#{@phone}', '#{@location}') RETURNING id;")
@@ -55,7 +61,6 @@ class Stylist
 
   def self.find(id)
     result = DB.exec("SELECT * FROM stylists WHERE id = #{id}") #.first()
-# binding.pry
     if result.values.size() > 1 then raise ArgumentError "invalid SELECT result - dup stylist.id keys" end
     stylist = Stylist.new({:id => result[0]['id'].to_i, :name => result[0]['name'], :phone => result[0]['phone'], :location => result[0]['location']})
   end

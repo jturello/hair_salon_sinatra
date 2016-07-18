@@ -5,7 +5,7 @@ describe(Stylist) do
   describe('#initialize') do
 
     it('instantiates a stylist object') do
-      stylist = Stylist.new({:id => 1, :name => 'Joan of Arch'})
+      stylist = Stylist.new({:id => nil, :name => 'Joan of Arch'})
       expect(stylist.class).to eq(Stylist)
     end
 
@@ -53,42 +53,60 @@ describe(Stylist) do
 
     it("won't change @name to nil") do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+      stylist.save
       expect(stylist.update!({:name => nil}).name).to eq('Jane Doe')
     end
 
     it("won't set @name to empty string") do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+      stylist.save
       expect(stylist.update!({:name => ''}).name).to eq('Jane Doe')
     end
 
     it('updates @phone') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
+      stylist.save
       expect(stylist.update!({:phone => '512-555-5555'}).phone).to eq('512-555-5555')
     end
 
     it('wont allow @phone to be nil') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
+      stylist.save
       expect(stylist.update!({:phone => nil}).phone).not_to eq(nil)
     end
 
     it('allows @phone to be empty string') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
+      stylist.save
       expect(stylist.update!({:phone => ''}).phone).to eq('')
     end
 
     it('updates @location') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
+      stylist.save
       expect(stylist.update!({:location => 'Hillsboro'}).location).to eq('Hillsboro')
     end
 
     it('wont allow @location to be nil') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
+      stylist.save
       expect(stylist.update!({:location => nil}).location).not_to eq(nil)
     end
 
     it('allows @phone to be empty string') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
+      stylist.save
       expect(stylist.update!({:location => ''}).location).to eq('')
+    end
+
+    it('updates stylist record on database as well as object') do
+      stylist = Stylist.new({:id => nil, :name => 'Joe Montana', :phone => '503-333-4444', :location => 'Beavertonia'})
+      stylist.save
+      stylist.update!({:name => "Judy Tenuta", :location => "Phoenix"})
+      result = DB.exec("SELECT * FROM stylists WHERE id = #{stylist.id};")
+      expect((result[0]['id'] == stylist.id) && (result[0]['name'] == "Judy Tenuta"))
+      expect((stylist.name == "Judy Tenuta") && (stylist.location == "Phoenix"))
+      expect(Stylist.find(stylist.id)).to eq(stylist)
     end
   end
 
@@ -161,7 +179,6 @@ describe(Stylist) do
       stylist2 = Stylist.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
       stylist1.save()
       stylist2.save()
-# binding.pry
       expect(stylist1).not_to eq(stylist2)
     end
 

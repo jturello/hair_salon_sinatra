@@ -16,7 +16,7 @@ class Stylist
 
   end
 
-  def update!(args)
+  def update(args)
     @name = args[:name] unless args[:name].nil? || args[:name] == ""
     args[:phone] == nil ? @phone = "" : @phone = args[:phone]
     args[:location] == nil ? @location = "" : @location = args[:location]
@@ -29,15 +29,15 @@ class Stylist
   end
 
   def self.all
-    returned_stylists = DB.exec("SELECT * FROM stylists;")
     stylists = []
+    returned_stylists = DB.exec("SELECT * FROM stylists;")
     returned_stylists.each do |stylist|
       stylists.push(Stylist.new({:id => stylist['id'], :name => stylist['name'], :phone => stylist['phone'], :location => stylist['location']}))
     end
     stylists
   end
 
-  self.delete_all)
+  def self.delete_all()
     DB.exec("DELETE FROM clients;")
     DB.exec("DELETE FROM stylists;")
   end
@@ -48,7 +48,7 @@ class Stylist
   end
 
   def self.find(id)
-    stylist = DB.exec("SELECT * FROM stylists WHERE id = #{id}").first()
+    stylist = DB.exec("SELECT * FROM stylists WHERE id = #{id}")
     stylist_obj = Stylist.new({:id => stylist['id'].to_i, :name => stylist['name'], :phone => stylist['phone'], :location => stylist['location']})
   end
 
@@ -58,15 +58,15 @@ class Stylist
 
   def add_client(args)
     client = args[:client]
-    DB.exec("UPDATE clients SET stylist_id = #{@id} WHERE id = #{client.id}")
+    DB.exec("UPDATE clients SET stylist_id = #{@id} WHERE id = #{client.id};")
   end
 
-   def clients()
-     clients = []
-     results = DB.exec("SELECT * FROM clients WHERE stylist_id = #{self.id};")
-     results.each() do |result|
-       clients.push(Client.new({:id => result['id'].to_i, :name => result['name'], :phone => result['phone'], :location => result['location'], :stylist_id => result['stylist_id']}))
-     end
-     clients
-   end
+ def clients()
+    clients = []
+    results = DB.exec("SELECT * FROM clients WHERE stylist_id = #{self.id};")
+    results.each() do |result|
+      clients.push(Client.new({:id => result['id'].to_i, :name => result['name'], :phone => result['phone'], :location => result['location'], :stylist_id => result['stylist_id']}))
+    end
+    clients
+  end
 end

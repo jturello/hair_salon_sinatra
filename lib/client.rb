@@ -1,7 +1,7 @@
 class Client
-#
+
   attr_reader :name, :id, :phone, :location, :stylist_id
-#
+
   def initialize(args)
 
     @id = args[:id]
@@ -44,28 +44,24 @@ class Client
   def ==(other)
     (@id == other.id) && (@name == other.name) && (@phone == other.phone) && (@location == other.location) && (@stylist_id == other.stylist_id)
   end
-#
-#   def update_name!(new_name)
-#     @name = new_name
-#     DB.exec("UPDATE clients SET name = '#{@name}' WHERE id = #{@id}")
-#   end
 
-def update!(args)
+  def update!(args)
 
-  if (!(args[:name].nil?)) && (!((args[:name] == "")))
-    @name = args[:name]  #unless args[:name].nil? || args[:name] == "" # || args[:name] == " "
-    DB.exec("UPDATE Clients SET name = '#{@name}' WHERE id = #{@id}")
+    if (!(args[:name].nil?)) && (!((args[:name] == "")))
+      @name = args[:name]  #unless args[:name].nil? || args[:name] == "" # || args[:name] == " "
+      DB.exec("UPDATE Clients SET name = '#{@name}' WHERE id = #{@id}")
+    end
+
+    if (!(args[:phone].nil?))
+      @phone = args[:phone]
+      DB.exec("UPDATE Clients SET phone = '#{@phone}' WHERE id = #{@id}")
+    end
+
+    if (!(args[:location].nil?))
+      @location = args[:location]
+      DB.exec("UPDATE Clients SET location = '#{@location}' WHERE id = #{@id}")
+    end
+    
+    return self
   end
-
-  if (!(args[:phone].nil?))
-    @phone = args[:phone]
-    DB.exec("UPDATE Clients SET phone = '#{@phone}' WHERE id = #{@id}")
-  end
-
-  if (!(args[:location].nil?))
-    @location = args[:location]
-    DB.exec("UPDATE Clients SET location = '#{@location}' WHERE id = #{@id}")
-  end
-  return self
-end
 end

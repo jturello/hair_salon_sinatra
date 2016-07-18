@@ -17,11 +17,17 @@ class Stylist
   end
 
   def update!(args)
-    @name = args[:name] unless args[:name].nil? || args[:name] == ""
+    @name = args[:name] unless args[:name].nil? || args[:name] == "" # || args[:name] == " "
     args[:phone] == nil ? @phone = "" : @phone = args[:phone]
     args[:location] == nil ? @location = "" : @location = args[:location]
     return self
   end
+
+  # def name=(new_name)
+  #   aise ArgumentError.new('Name cannot be nil!') if args[:name] == nil
+  #   raise ArgumentError.new("invalid input for name: " + new_name) if new_name.match(/[^a-z \-.]+|^$|^\s+$/i)
+  #   @name = new_name
+  # end
 
   def save()
     result = DB.exec("INSERT INTO stylists (name, phone, location) VALUES ('#{@name}', '#{@phone}', '#{@location}') RETURNING id;")

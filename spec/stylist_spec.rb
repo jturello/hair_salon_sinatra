@@ -38,22 +38,25 @@ describe(Stylist) do
 
   describe('#update!') do
 
-    it("doesn't change @id") do
-      stylist = Stylist.new({:id => 1, :name => 'Jane Doe'})
-      expect(stylist.update!({:id => 4}).id).to eq(1)
+    it("won't change @id") do
+      stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
+      stylist.save
+      expect(stylist.update!({:id => 4}).id).to eq(stylist.id)
     end
 
     it('updates @name') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
-      expect(stylist.update!({:name => 'Jack Flack'}).name).to eq('Jack Flack')
+      stylist.save
+      stylist.update!({:name => "Jack Flack"})
+      expect(stylist.name).to eq('Jack Flack')
     end
 
-    it("doesn't change @name to nil") do
+    it("won't change @name to nil") do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
       expect(stylist.update!({:name => nil}).name).to eq('Jane Doe')
     end
 
-    it("doesn't set @name to empty string") do
+    it("won't set @name to empty string") do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe'})
       expect(stylist.update!({:name => ''}).name).to eq('Jane Doe')
     end
@@ -65,7 +68,7 @@ describe(Stylist) do
 
     it('wont allow @phone to be nil') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
-      expect(stylist.update!({:phone => nil}).phone).to eq(nil)
+      expect(stylist.update!({:phone => nil}).phone).not_to eq(nil)
     end
 
     it('allows @phone to be empty string') do
@@ -80,7 +83,7 @@ describe(Stylist) do
 
     it('wont allow @location to be nil') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
-      expect(stylist.update!({:location => nil}).location).to eq(nil)
+      expect(stylist.update!({:location => nil}).location).not_to eq(nil)
     end
 
     it('allows @phone to be empty string') do
@@ -158,6 +161,7 @@ describe(Stylist) do
       stylist2 = Stylist.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
       stylist1.save()
       stylist2.save()
+# binding.pry
       expect(stylist1).not_to eq(stylist2)
     end
 

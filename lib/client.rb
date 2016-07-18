@@ -11,7 +11,7 @@ class Client
     args[:location] == nil ? @location = "" : @location = args[:location]
     #stylist_id always set to nil here  to limit access as it's the foreign key in DB,
     #it is only set programmatically in styist#add_client
-    @stylist_id = nil
+    # @stylist_id = args[:stylist_id]
   end
 
   def save()
@@ -30,7 +30,7 @@ class Client
 
   def self.find(id)
     client = DB.exec("SELECT * FROM clients WHERE id = #{id}").first()
-    return Client.new({:id => client['id'].to_i, :name => client['name'], :phone => client['phone'], :location => client['location']})
+    return Client.new({:id => client['id'].to_i, :name => client['name'], :phone => client['phone'], :location => client['location'], :stylist_id => client['stylist_id']})
   end
 
   def self.delete_all()
@@ -61,7 +61,7 @@ class Client
       @location = args[:location]
       DB.exec("UPDATE Clients SET location = '#{@location}' WHERE id = #{@id}")
     end
-    
+
     return self
   end
 end

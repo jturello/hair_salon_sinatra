@@ -49,4 +49,23 @@ class Client
 #     @name = new_name
 #     DB.exec("UPDATE clients SET name = '#{@name}' WHERE id = #{@id}")
 #   end
+
+def update!(args)
+
+  if (!(args[:name].nil?)) && (!((args[:name] == "")))
+    @name = args[:name]  #unless args[:name].nil? || args[:name] == "" # || args[:name] == " "
+    DB.exec("UPDATE Clients SET name = '#{@name}' WHERE id = #{@id}")
+  end
+
+  if (!(args[:phone].nil?))
+    @phone = args[:phone]
+    DB.exec("UPDATE Clients SET phone = '#{@phone}' WHERE id = #{@id}")
+  end
+
+  if (!(args[:location].nil?))
+    @location = args[:location]
+    DB.exec("UPDATE Clients SET location = '#{@location}' WHERE id = #{@id}")
+  end
+  return self
+end
 end

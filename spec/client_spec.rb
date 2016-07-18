@@ -52,7 +52,7 @@ describe(Client) do
 
   describe('#==') do
 
-    it("returns true if the clients' @id/@name/@phone/@location/@stylist_id are equal") do
+    it("returns true if the clients' @id/@name/@phone/@location/@client_id are equal") do
       client1 = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
       client1.save()
       expect(client1).to eq(Client.find(client1.id))
@@ -124,4 +124,77 @@ describe(Client) do
 #       expect(client2.name).to eq('Green')
 #     end
 #   end
+
+
+  describe('#update!') do
+
+    it("won't change @id") do
+      client = Client.new({:id => nil, :name => 'Jane Doe'})
+      client.save
+      expect(client.update!({:id => 4}).id).to eq(client.id)
+    end
+
+    it('updates @name to another valid name') do
+      client = Client.new({:id => nil, :name => 'Jane Doe'})
+      client.save
+      client.update!({:name => "Jack Flack"})
+      expect(client.name).to eq('Jack Flack')
+    end
+
+    it("won't change @name to nil") do
+      client = Client.new({:id => nil, :name => 'Jane Doe'})
+      client.save
+      expect(client.update!({:name => nil}).name).to eq('Jane Doe')
+    end
+
+    it("won't set @name to empty string") do
+      client = Client.new({:id => nil, :name => 'Jane Doe'})
+      client.save
+      expect(client.update!({:name => ''}).name).to eq('Jane Doe')
+    end
+
+    it('updates @phone to another valid phone number') do
+      client = Client.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
+      client.save
+      expect(client.update!({:phone => '512-555-5555'}).phone).to eq('512-555-5555')
+    end
+
+    it('wont allow @phone to be nil') do
+      client = Client.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
+      client.save
+      expect(client.update!({:phone => nil}).phone).not_to eq(nil)
+    end
+
+    it('allows @phone to be empty string') do
+      client = Client.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
+      client.save
+      expect(client.update!({:phone => ''}).phone).to eq('')
+    end
+
+    it('updates @location to another valid location') do
+      client = Client.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
+      client.save
+      expect(client.update!({:location => 'Hillsboro'}).location).to eq('Hillsboro')
+    end
+
+    it('wont allow @location to be nil') do
+      client = Client.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
+      client.save
+      expect(client.update!({:location => nil}).location).not_to eq(nil)
+    end
+
+    it('allows @location to be empty string') do
+      client = Client.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
+      client.save
+      expect(client.update!({:location => ''}).location).to eq('')
+    end
+
+    it('updates client record on database as well as object') do
+      client = Client.new({:id => nil, :name => 'Joe Montana', :phone => '503-333-4444', :location => 'Beavertonia'})
+      client.save
+      client.update!({:name => "Judy Tenuta", :location => "Phoenix"})
+      result = DB.exec("SELECT * FROM clients WHERE id = #{client.id};")
+      expect((result[0]['id'] == client.id) && (result[0]['name'] == "Judy Tenuta"))
+    end
+  end
 end

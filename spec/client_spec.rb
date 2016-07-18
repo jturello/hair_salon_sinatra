@@ -85,10 +85,8 @@ describe(Client) do
 
     it('returns the client with the input id') do
       client1 = Client.new({:id => nil, :name => 'Dr. Seuss', :phone => '503-555-4444', :location => 'Sellwood'})
-      client2 = Client.new({:id => nil, :name => 'Dudely Doolittle', :location => 'Beaverton'})
       client1.save()
-      client2.save()
-      expect(Client.find(client2.id)).to eq(client2)
+      expect(Client.find(client1.id)).to eq(client1)
     end
   end
 

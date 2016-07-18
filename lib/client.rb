@@ -33,10 +33,10 @@ class Client
     return Client.new({:id => client['id'].to_i, :name => client['name'], :phone => client['phone'], :location => client['location']})
   end
 
-#   define_singleton_method(:delete_all) do
-#     DB.exec("DELETE FROM clients;")
-#   end
-#
+  def self.delete_all()
+    DB.exec("DELETE FROM clients;")
+  end
+
 #   define_method(:delete) do
 #     DB.exec("DELETE FROM clients WHERE id = #{@id};")
 #   end

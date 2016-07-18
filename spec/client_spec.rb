@@ -66,14 +66,14 @@ describe(Client) do
       expect(client1).not_to eq(client2)
     end
 
-    it('returns true if @id, @name, & @phone equal and @location is not set')do
+    it('returns true if @id, @name, & @phone equal and @location is not set') do
       client1 = Client.new({:id => nil, :name => 'Jack Johsnon', :phone => '503-333-4444'})
       client1.save()
       client2 = Client.find(client1.id)
       expect(client1).to eq(Client.find(client2.id))
     end
 
-    it('returns true if @id, @name, & @location equal and @phone is not set')do
+    it('returns true if @id, @name, & @location equal and @phone is not set') do
       client1 = Client.new({:id => nil, :name => 'Jack Johsnon', :location => 'Beavertonia'})
       client1.save()
       client2 = Client.find(client1.id)
@@ -90,18 +90,17 @@ describe(Client) do
     end
   end
 
-#
-#   describe('.delete_all') do
-#     it('deletes stored client objects on the database') do
-#       client1 = Client.new({:id => nil, :name => 'Italo Calvino'})
-#       client1.save()
-#       client2 = Client.new({:id => nil, :name => 'Tom Clancy'})
-#       client2.save()
-#       Client.delete_all
-#       result = DB.exec("SELECT * FROM clients;")
-#       expect(result.values.size()).to eq(0)
-#     end
-#   end
+  describe('.delete_all') do
+    it('deletes stored client objects on the database') do
+      client1 = Client.new({:id => nil, :name => 'Italo Calvino'})
+      client1.save()
+      client2 = Client.new({:id => nil, :name => 'Tom Clancy'})
+      client2.save()
+      Client.delete_all
+      result = DB.exec("SELECT * FROM clients;")
+      expect(result.values.size()).to eq(0)
+    end
+  end
 #
 #   describe('#delete') do
 #     it('deletes a client from the database') do

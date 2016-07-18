@@ -1,4 +1,4 @@
-
+require('pry')
 class Stylist
 #
   attr_reader :name, :id, :location, :phone
@@ -16,7 +16,7 @@ class Stylist
 
   end
 
-  def update(args)
+  def update!(args)
     @name = args[:name] unless args[:name].nil? || args[:name] == ""
     args[:phone] == nil ? @phone = "" : @phone = args[:phone]
     args[:location] == nil ? @location = "" : @location = args[:location]
@@ -48,8 +48,10 @@ class Stylist
   end
 
   def self.find(id)
-    stylist = DB.exec("SELECT * FROM stylists WHERE id = #{id}")
-    stylist_obj = Stylist.new({:id => stylist['id'].to_i, :name => stylist['name'], :phone => stylist['phone'], :location => stylist['location']})
+    result = DB.exec("SELECT * FROM stylists WHERE id = #{id}") #.first()
+# binding.pry
+    if result.values.size() > 1 then raise ArgumentError "invalid SELECT result - dup stylist.id keys" end
+    stylist = Stylist.new({:id => result[0]['id'].to_i, :name => result[0]['name'], :phone => result[0]['phone'], :location => result[0]['location']})
   end
 
   def ==(other)

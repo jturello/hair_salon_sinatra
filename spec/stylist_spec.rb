@@ -219,4 +219,8 @@ describe(Stylist) do
       expect(stylist.clients()).to eq([client1, client2])
     end
   end
+
+  describe('#remove_client') do
+    #pending
+  end
 end

@@ -101,16 +101,18 @@ describe(Client) do
       expect(result.values.size()).to eq(0)
     end
   end
-#
-#   describe('#delete') do
-#     it('deletes a client from the database') do
-#       client = Client.new({:id => nil, :name => 'Tom Clancy'})
-#       client.save()
-#       client.delete
-#       result = DB.exec("SELECT id FROM clients WHERE id = #{client.id};")
-#       expect(result.values.size()).to eq(0)
-#     end
-#   end
+
+  describe('#delete') do
+    it('deletes a client from the database') do
+      client = Client.new({:id => nil, :name => 'Tom Clancy'})
+      client.save()
+      client_count_pre_delete = Client.all.size
+      client.delete
+      client_count_post_delete = Client.all.size
+      expect(client_count_pre_delete).to eq(1)
+      expect(client_count_post_delete).to eq(0)
+    end
+  end
 #
 #
 #   describe('#update_name') do

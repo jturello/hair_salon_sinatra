@@ -37,11 +37,10 @@ class Client
     DB.exec("DELETE FROM clients;")
   end
 
-#   define_method(:delete) do
-#     DB.exec("DELETE FROM clients WHERE id = #{@id};")
-#   end
-#
-#
+  def delete()
+    DB.exec("DELETE FROM clients WHERE id = #{@id};")
+  end
+
   def ==(other)
     (@id == other.id) && (@name == other.name) && (@phone == other.phone) && (@location == other.location) && (@stylist_id == other.stylist_id)
   end

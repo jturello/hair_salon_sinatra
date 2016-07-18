@@ -105,8 +105,6 @@ describe(Stylist) do
       stylist.update!({:name => "Judy Tenuta", :location => "Phoenix"})
       result = DB.exec("SELECT * FROM stylists WHERE id = #{stylist.id};")
       expect((result[0]['id'] == stylist.id) && (result[0]['name'] == "Judy Tenuta"))
-      expect((stylist.name == "Judy Tenuta") && (stylist.location == "Phoenix"))
-      expect(Stylist.find(stylist.id)).to eq(stylist)
     end
   end
 

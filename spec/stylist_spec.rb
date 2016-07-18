@@ -63,7 +63,7 @@ describe(Stylist) do
       expect(stylist.update!({:phone => '512-555-5555'}).phone).to eq('512-555-5555')
     end
 
-    it('allows @phone to be nil') do
+    it('wont allow @phone to be nil') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :phone => '503-111-2222'})
       expect(stylist.update!({:phone => nil}).phone).to eq(nil)
     end
@@ -78,7 +78,7 @@ describe(Stylist) do
       expect(stylist.update!({:location => 'Hillsboro'}).location).to eq('Hillsboro')
     end
 
-    it('allows @location to be nil') do
+    it('wont allow @location to be nil') do
       stylist = Stylist.new({:id => nil, :name => 'Jane Doe', :location => 'Beaverton'})
       expect(stylist.update!({:location => nil}).location).to eq(nil)
     end

@@ -14,6 +14,8 @@ class Stylist
     args[:phone] == nil ? @phone = "" : @phone = args[:phone]
     args[:location] == nil ? @location = "" : @location = args[:location]
 
+    @clients = []
+
   end
 
   def update!(args)
@@ -61,8 +63,13 @@ class Stylist
 
   def self.find(id)
     result = DB.exec("SELECT * FROM stylists WHERE id = #{id}") #.first()
+
     if result.values.size() > 1 then raise ArgumentError "invalid SELECT result - dup stylist.id keys" end
     stylist = Stylist.new({:id => result[0]['id'].to_i, :name => result[0]['name'], :phone => result[0]['phone'], :location => result[0]['location']})
+
+    stylist.clients # populates stylist obj's @clients array
+
+    stylist
   end
 
   def ==(other)
@@ -71,15 +78,27 @@ class Stylist
 
   def add_client(args)
     client = args[:client]
+
     DB.exec("UPDATE clients SET stylist_id = #{@id} WHERE id = #{client.id};")
+    result = DB.exec("SELECT * FROM clients")
+    @clients.push(Client.find(client.id))
   end
 
  def clients()
-    clients = []
+    @clients = []
     results = DB.exec("SELECT * FROM clients WHERE stylist_id = #{self.id};")
     results.each() do |result|
-      clients.push(Client.new({:id => result['id'].to_i, :name => result['name'], :phone => result['phone'], :location => result['location'], :stylist_id => result['stylist_id']}))
+      @clients.push(Client.new({:id => result['id'].to_i, :name => result['name'], :phone => result['phone'], :location => result['location'], :stylist_id => result['stylist_id']}))
     end
-    clients
+    @clients
+  end
+
+  def remove_client(args)
+    client = args[:client]
+    if @clients.include?(client)
+      results = DB.exec("UPDATE clients SET stylist_id = null WHERE id = #{client.id};")
+      @clients.delete(client)
+    end
+    client
   end
 end

@@ -160,7 +160,20 @@ describe(Stylist) do
       stylist2 = Stylist.new({:id => nil, :name => 'Brenda Lee Johnson', :phone => '234-123-4567', :location => 'Portland'})
       stylist1.save()
       stylist2.save()
+  # binding.pry
       expect(Stylist.find(stylist2.id)).to eq(stylist2)
+    end
+
+    it('returns stylists with correct values in @clients array') do
+      stylist = Stylist.new({:id => nil, :name => "Brenda Lee Johnson", :phone => '503-543-6543', :location => 'Seattle'})
+      stylist.save()
+      client1 = Client.new({:id => nil, :name => 'Lenard Nemoy', :phone => '111-222-3333', :location => 'Honolulu'})
+      client1.save()
+      stylist.add_client({:client => client1})
+      client2 = Client.new({:id => nil, :name => 'Minny Mouse', :phone => '111-222-9876', :location => 'Disneyland'})
+      client2.save()
+      stylist.add_client({:client => client2})
+      expect(stylist.clients).to eq(Stylist.find(stylist.id).clients)
     end
   end
 
@@ -216,9 +229,34 @@ describe(Stylist) do
       stylist.add_client({:client => client2})
       expect(stylist.clients()).to eq([client1, client2])
     end
+
+    it('updates @clients and client records on DB correctly') do
+      stylist = Stylist.new({:id => nil, :name => "Brenda Lee Johnson", :phone => '503-543-6543', :location => 'Seattle'})
+      stylist.save()
+      client1 = Client.new({:id => nil, :name => 'Lenard Nemoy', :phone => '111-222-3333', :location => 'Honolulu'})
+      client1.save()
+      stylist.add_client({:client => client1})
+      client2 = Client.new({:id => nil, :name => 'Minny Mouse', :phone => '111-222-9876', :location => 'Disneyland'})
+      client2.save()
+      stylist.add_client({:client => client2})
+      expect(stylist.clients[0].stylist_id).to eq(@id)
+    end
   end
 
   describe('#remove_client') do
-    #pending
+      it("removes link between stylist and client") do
+        stylist = Stylist.new({:id => nil, :name => "Captain Kirk"})
+        stylist.save()
+        spock = Client.new({:id => nil, :name => 'Spock'})
+        spock.save()
+        bones = Client.new({:id => nil, :name => 'Bones'})
+        bones.save()
+        stylist.add_client({:client => spock})
+        stylist.add_client({:client => bones})
+        expect(stylist.clients()).to eq([spock, bones])
+
+        stylist.remove_client({:client => spock})
+        expect(stylist.clients()).to eq([bones])
+      end
   end
 end

@@ -1,17 +1,17 @@
-# require('sinatra')
-# require('sinatra/reloader')
-# also_reload('lib/**/*.rb')
-# require('./lib/stylist')
-# require('./lib/client')
-# require('pry')
-# require('launchy')
-# require('pg')
-#
-#
-# get('/') do
-#   @page_title = "Library App"
-#   erb(:index)
-# end
+require('sinatra')
+require('sinatra/reloader')
+also_reload('lib/**/*.rb')
+require('./lib/stylist')
+require('./lib/client')
+require('pry')
+require('launchy')
+require('pg')
+
+
+get('/') do
+  @page_title = "The Rubyist Hair Salon"
+  erb(:stylists)
+end
 #
 # get('/admin') do
 #     @page_title = "Book Catalog"

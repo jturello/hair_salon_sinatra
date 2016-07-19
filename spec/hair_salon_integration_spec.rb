@@ -43,6 +43,25 @@ describe("root path '/'", {:type => :feature}) do
     expect(page).to have_content 'The Rubyist Hair Salon'
   end
 
+  it('displays stylist detail page on clicking a stylist name link') do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    click_link 'Joe Stylist'
+    expect(page).to have_content('Stylist Detail Page')
+  end
+end
+
+describe('stylist detail page - /stylists/:id', {:type => :feature}) do
+
+  it('') do
+    visit('/')
+  end
+
+
+end
+
 
   # it('displays a stylist list once one is saved') do
   #   visit('/')
@@ -53,7 +72,7 @@ describe("root path '/'", {:type => :feature}) do
   # end
 
 
-end
+
 #
 # describe('/stylists path - display all stylists') do
 # end

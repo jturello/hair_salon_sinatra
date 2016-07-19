@@ -35,6 +35,14 @@ describe("root path '/'", {:type => :feature}) do
     expect(page).to have_content 'Joe Stylist'
   end
 
+  it('redisplays the page header after stylist is added') do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    expect(page).to have_content 'The Rubyist Hair Salon'
+  end
+
 
   # it('displays a stylist list once one is saved') do
   #   visit('/')

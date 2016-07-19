@@ -19,6 +19,7 @@ get('/stylist_form') do
 end
 
 post('/stylists/new') do
+  @page_title = "The Rubyist Hair Salon"
   name = params[:name]
   phone = params[:phone]
   location = params[:location]

@@ -7,11 +7,18 @@ require('pry')
 require('launchy')
 require('pg')
 
+DB = PG.connect({:dbname => 'hair_salon_test'})
 
 get('/') do
   @page_title = "The Rubyist Hair Salon"
-  erb(:stylists)
+  erb(:index)
 end
+
+get('/stylist_form') do
+  erb(:stylist_form)
+end
+
+
 #
 # get('/admin') do
 #     @page_title = "Book Catalog"

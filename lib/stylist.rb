@@ -46,7 +46,7 @@ class Stylist
     stylists = []
     returned_stylists = DB.exec("SELECT * FROM stylists;")
     returned_stylists.each do |stylist|
-      stylists.push(Stylist.new({:id => stylist['id'], :name => stylist['name'], :phone => stylist['phone'], :location => stylist['location']}))
+      stylists.push(Stylist.new({:id => stylist['id'].to_i, :name => stylist['name'], :phone => stylist['phone'], :location => stylist['location']}))
     end
     stylists
   end

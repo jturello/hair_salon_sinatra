@@ -1,0 +1,11 @@
+<h1><%= @page_title %></h1>
+
+<a href="/stylist_form">Add a Stylist</a>
+
+<hr>
+
+
+<% if Stylist.all().size() > 0 %>
+binding.pry
+  <li><a href="/stylists/<%= @stylist.id %>"><%= @stylist.text %></a></li
+<% end %>

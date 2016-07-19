@@ -160,7 +160,6 @@ describe(Stylist) do
       stylist2 = Stylist.new({:id => nil, :name => 'Brenda Lee Johnson', :phone => '234-123-4567', :location => 'Portland'})
       stylist1.save()
       stylist2.save()
-  # binding.pry
       expect(Stylist.find(stylist2.id)).to eq(stylist2)
     end
 

@@ -9,6 +9,32 @@ describe("root path '/'", {:type => :feature}) do
     visit('/')
     expect(page).to have_content('The Rubyist Hair Salon')
   end
+
+  it('displays an input field to enter new stylists') do
+    visit('/')
+    expect(page).to have_content('Add a Stylist')
+  end
+
+  it("displays no stylist list before stylists are saved") do
+    visit('/')
+    expect(page).not_to have_content('Stylist List:')
+  end
+
+  it('displays the stylist_form when user clicks on Add a Stylist link') do
+    visit('/')
+    click_link 'Add a Stylist'
+    expect(page).to have_content('Add Stylist Form')
+  end
+
+  # it('displays a stylist list once one is saved') do
+  #   visit('/')
+  #   fill_in('add_stylist', :with => 'Joe Stylist')
+  #   click_button('Add')
+  #   # save_and_open_page
+  #   expect(page).to have_content('Joe Stylist')
+  # end
+
+
 end
 #
 # describe('/stylists path - display all stylists') do

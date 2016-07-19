@@ -7,10 +7,11 @@ require('pry')
 require('launchy')
 require('pg')
 
-# DB = PG.connect({:dbname => 'hair_salon_test'})
+DB = PG.connect({:dbname => 'hair_salon_test'})
 
 get('/') do
   @page_title = "The Rubyist Hair Salon"
+  @stylists = Stylist.all()
   erb(:index)
 end
 
@@ -25,8 +26,8 @@ post('/stylists/new') do
   location = params[:location]
   @stylist = Stylist.new({:id => nil, :name => name, :phone => phone, :location => location})
   @stylist.save
-
-  erb(:index)
+  redirect ('/')
+  # erb(:index)
 end
 
 get('/stylists/:id') do
@@ -34,6 +35,12 @@ get('/stylists/:id') do
   @stylist = Stylist.find(params[:id].to_i)
 # binding.pry
   erb(:stylist)
+end
+
+delete('/stylists/:id') do
+  stylist = Stylist.find(params[:id].to_i)
+  stylist.delete()
+  redirect('/')
 end
 
 

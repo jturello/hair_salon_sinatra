@@ -4,3 +4,9 @@
 <a href="/client_form">Add a Client</a>
 
 <h3><%= @stylist.name %></h3>
+
+<h1>Delete This Stylist</h1>
+<form action="/stylists/<%= @stylist.id %>" method="post">
+  <input name="_method" type="hidden" value="delete">
+  <button type="submit">Delete</button>
+</form>

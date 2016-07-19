@@ -113,18 +113,6 @@ describe(Client) do
       expect(client_count_post_delete).to eq(0)
     end
   end
-#
-#
-#   describe('#update_name') do
-#     it('will change the name of the client') do
-#       client1 = Client.new({:id => nil, :name => 'Red'})
-#       client1.save()
-#       client1.update_name!('Green')
-#       client2 = Client.find(client1.id)
-#       expect(client2.name).to eq('Green')
-#     end
-#   end
-
 
   describe('#update!') do
 

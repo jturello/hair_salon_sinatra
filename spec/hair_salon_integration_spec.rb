@@ -55,8 +55,22 @@ end
 
 describe('stylist detail page - /stylists/:id', {:type => :feature}) do
 
-  it('') do
+  # it("displays an 'Add Client' link") do
+  #   visit('/')
+  #   click_link 'Add a Stylist'
+  #   fill_in 'name', :with => 'Joe Stylist'
+  #   click_button 'Add'
+  #   click_link 'Joe Stylist'
+  #   expect(page).to have_content('Add a Client')
+  # end
+
+  it("displays the stylist's information") do
     visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    click_link 'Joe Stylist'
+    expect(page).to have_css("h3", text: "Joe Stylist")
   end
 
 

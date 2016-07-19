@@ -5,7 +5,11 @@
 <hr>
 
 
-<% if Stylist.all().size() > 0 %>
-binding.pry
-  <li><a href="/stylists/<%= @stylist.id %>"><%= @stylist.text %></a></li
+<% if Stylist.all().size()> 0 %>
+  <h3>Stylist List:</h3>
+  <ul>
+    <% Stylist.all().each() do |stylist| %>
+      <li><a href="/stylists/<%= stylist.id %>"><%= @stylist.name %></a></li>
+    <% end %>
+  </ul>
 <% end %>

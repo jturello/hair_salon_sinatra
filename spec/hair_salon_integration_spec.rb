@@ -5,6 +5,7 @@ set(:show_exceptions, false)
 
 
 describe("root path '/'", {:type => :feature}) do
+
   it('displays the homepage') do
     visit('/')
     expect(page).to have_content('The Rubyist Hair Salon')
@@ -25,6 +26,15 @@ describe("root path '/'", {:type => :feature}) do
     click_link 'Add a Stylist'
     expect(page).to have_content('Add Stylist Form')
   end
+
+  it('displays the Stylist list once at least one is saved') do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    expect(page).to have_content 'Joe Stylist'
+  end
+
 
   # it('displays a stylist list once one is saved') do
   #   visit('/')

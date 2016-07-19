@@ -18,6 +18,17 @@ get('/stylist_form') do
   erb(:stylist_form)
 end
 
+post('/stylists/new') do
+  name = params[:name]
+  phone = params[:phone]
+  location = params[:location]
+  @stylist = Stylist.new({:id => nil, :name => name, :phone => phone, :location => location})
+  @stylist.save
+  # binding.pry
+
+  erb(:index)
+end
+
 
 #
 # get('/admin') do

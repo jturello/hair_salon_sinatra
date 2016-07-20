@@ -73,7 +73,7 @@ describe('stylist detail page - /stylists/:id', {:type => :feature}) do
     expect(page).to have_content('Delete This Stylist')
   end
 
-  it('displays the homepage without the deleted stylist in the stylist list') do
+  it('displays the homepage without the deleted stylist in the stylist list on delete') do
     visit('/')
     click_link 'Add a Stylist'
     fill_in 'name', :with => 'Joe Stylist'
@@ -83,6 +83,29 @@ describe('stylist detail page - /stylists/:id', {:type => :feature}) do
     expect(page).to_not have_content('Joe Stylist')
   end
 
+  it('displays an Add Client link') do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    click_link 'Joe Stylist'
+    expect(page).to have_content('Add a Client')
+  end
+
+  it('displays the Add Client page on clicking Add a Stylist link') do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    click_link 'Joe Stylist'
+    click_link('Add a Client')
+    expect(page).to have_content('Add Client Page')
+  end
+end
+
+describe('Add client page') do
+
+  it('display')
 
 end
 

@@ -43,6 +43,11 @@ delete('/stylists/:id') do
   redirect('/')
 end
 
+post('/stylists/:id/clients/new') do
+
+
+end
+
 
 #
 # get('/admin') do

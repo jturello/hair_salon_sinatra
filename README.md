@@ -3,11 +3,17 @@ DB Basics in Ruby/Sinatra.
 
 By James Turello
 
-## Description
+## Description (Assignment)
 
-This application contains two classes: One for Word, and one for Definition.
+> Create an application for a hair salon. The stylists at the salon work independently, so each client will only belong to a single stylist (one stylist, many clients).
 
-This webpage is hosted at and can be viewed at the following url: [XXXXXXXXXX](http://)
+>The following user stories should be completed:
+
+> * As a salon owner, I want to view, add, update and delete stylists.
+> * As a salon owner, I want to view, add, update and delete clients.
+> * As a salon owner, I want to add clients to a stylist.
+
+This webpage is hosted at and can be viewed at the following url: [hair-salon-sinatra](https://git.heroku.com/hair-salon-sinatra.git)
 
 ## Setup/Installation Requirements
 

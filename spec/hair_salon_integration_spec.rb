@@ -126,11 +126,14 @@ end
 
 describe('stylist update functionality', {:type => :feature}) do
 
-  # it('displays updated stylist name on stylist/:id page') do
-  #   visit('/')
-  #   click_link 'Add a Stylist'
-  #   fill_in 'name', :with => 'Joe Stylist'
-  #   click_button 'Add'
-  #   click_link 'Joe Stylist'
-  # end
+  it('displays updated stylist name on stylist/:id page') do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Original Name'
+    click_button 'Add'
+    click_link 'Original Name'
+    fill_in('new_name', :with => 'Updated Name')
+    click_button('Update')
+    expect(page).to have_content('Updated Name')
+  end
 end

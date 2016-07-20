@@ -3,7 +3,27 @@
 
 <a href="/stylists/<%= @stylist.id %>/clients/new">Add a Client</a>
 
-<h3><%= @stylist.name %></h3>
+<h3>Update <%= @stylist.name %>'s Information</h3>
+
+<form action="/stylists/<%= @stylist.id() %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <div class="form-group">
+    <label for="new_name">Update Name:</label>
+    <input id="new_name" name="new_name" type="text" placeholder="<%= @stylist.name() %>">
+  </div>
+  <div class="form-group">
+    <label for="new_phone">Update Phone:</label>
+    <input id="new_phone" name="new_phone" type="text" placeholder="<%= @stylist.phone() %>">
+  </div>  <div class="form-group">
+    <label for="new_location">Update Location:</label>
+    <input id="new_location" name="new_location" type="text" placeholder="<%= @stylist.location() %>">
+  </div>
+
+  <button type="submit">Update</button>
+</form>
+
+
+
 
 <h1>Delete This Stylist</h1>
 <form action="/stylists/<%= @stylist.id %>" method="post">

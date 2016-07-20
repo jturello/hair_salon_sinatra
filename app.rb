@@ -66,8 +66,6 @@ post('/stylists/:id/clients/new') do
   client.save()
   @stylist.add_client({:client => client})
 
-# binding.pry
-
   redirect("/stylists/#{@stylist.id}")
 end
 
@@ -77,4 +75,22 @@ get('/stylists/:id/clients/:id') do
   # binding.pry
   @stylist = Stylist.find(@client.stylist_id.to_i)
   erb(:client)
+end
+
+patch('/stylists/:id/clients/:id') do
+  @page_title = "Client Detail Page"
+  @client = Client.find(params[:id].to_i)
+  @stylist
+  # binding.pry
+
+  new_name = params[:new_name]
+  new_phone = params[:new_phone]
+  new_location = params[:new_location]
+  @client.update!({name: new_name, phone: new_phone, location: new_location})
+  @stylist = Stylist.find(@client.stylist_id.to_i)
+# binding.pry
+  redirect("/stylists/:id/clients/#{@client.id}")
+  # redirect("/stylists/:id/clients/#{client.id}")
+  erb(:client)
+
 end

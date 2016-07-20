@@ -6,24 +6,21 @@
   <input name="_method" type="hidden" value="patch">
   <div class="form-group">
     <label for="new_name">Update Name:</label>
-    <input id="new_name" name="new_name" type="text" placeholder="<%= @stylist.name() %>">
+    <input id="new_name" name="new_name" type="text" placeholder="<%= @client.name() %>">
   </div>
   <div class="form-group">
     <label for="new_phone">Update Phone:</label>
-    <input id="new_phone" name="new_phone" type="text" placeholder="<%= @stylist.phone() %>">
+    <input id="new_phone" name="new_phone" type="text" placeholder="<%= @client.phone() %>" required>
   </div>  <div class="form-group">
     <label for="new_location">Update Location:</label>
-    <input id="new_location" name="new_location" type="text" placeholder="<%= @stylist.location() %>">
+    <input id="new_location" name="new_location" type="text" placeholder="<%= @client.location() %>" required>
   </div>
 
   <button type="submit">Update</button>
 </form>
 
-
-
-
-<h1>Delete This Stylist</h1>
-<form action="/stylists/<%= @stylist.id %>" method="post">
+<h1>Delete This Client</h1>
+<form action="/stylists/<%= @stylist.id() %>/clients/<%= @client.id %>" method="post">
   <input name="_method" type="hidden" value="delete">
   <button type="submit">Delete</button>
 </form>

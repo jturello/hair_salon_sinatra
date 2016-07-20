@@ -48,10 +48,13 @@ get('/stylists/:id/clients/new') do
 end
 
 post('/stylists/:id/clients/new') do
-  @stylist = Stylist.find(params[:id].to_i)
-  client = Client.new({id: nil, name: params[:name], phone: params[:phone], location: params[location]})
+# binding.pry
+  @stylist = Stylist.find(params['id'].to_i)
+  client = Client.new({id: nil, name: params[:name], phone: params[:phone], location: params[:location]})
   client.save()
-  @stylist.add_client(client)
+  @stylist.add_client({:client => client})
+  # binding.pry
+
   # @stylist_clients = @stylist.clients()
   erb(:stylist)
 end

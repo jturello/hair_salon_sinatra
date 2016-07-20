@@ -63,7 +63,6 @@ class Stylist
 
   def self.find(id)
     result = DB.exec("SELECT * FROM stylists WHERE id = #{id}") #.first()
-  # binding.pry
     if result.values.size() > 1 then raise ArgumentError "invalid SELECT result - dup stylist.id keys" end
     stylist = Stylist.new({:id => result[0]['id'].to_i, :name => result[0]['name'], :phone => result[0]['phone'], :location => result[0]['location']})
 
@@ -78,7 +77,6 @@ class Stylist
 
   def add_client(args)
     client = args[:client]
-
     DB.exec("UPDATE clients SET stylist_id = #{@id} WHERE id = #{client.id};")
     result = DB.exec("SELECT * FROM clients")
     @clients.push(Client.find(client.id))

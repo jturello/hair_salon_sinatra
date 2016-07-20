@@ -1,0 +1,9 @@
+<h1><%= @page_title %></h1>
+
+<form action="/stylists/<%= @stylist.id %>/clients/new" method="post">
+  <label for="name">Client Name</label>
+  <input id="name" name="name" type="text">
+  <button type="submit">Add Client</button>
+</form>
+
+<a href="/">home</a>

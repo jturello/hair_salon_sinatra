@@ -1,7 +1,7 @@
 
 <h1><%= @page_title %></h1>
 
-<a href="/client_form">Add a Client</a>
+<a href="/stylists/<%= @stylist.id %>/clients/new">Add a Client</a>
 
 <h3><%= @stylist.name %></h3>
 
@@ -10,3 +10,19 @@
   <input name="_method" type="hidden" value="delete">
   <button type="submit">Delete</button>
 </form>
+
+<hr>
+
+<% if @stylist.clients().any?() %>
+<h1><%= @stylist.name %>"'s client list:"</h1>
+  <ul>
+    <% @stylist.clients().each() do |client| %>
+      <li><a href="/clients/<%= client.id() %>"><%= client.name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>This stylist has no clients yet.</p>
+<% end %>
+
+<h3><a href="/stylists/<%= @stylist.id() %>">Return to stylist pagey</a></h3>
+<a href="/">home</a>

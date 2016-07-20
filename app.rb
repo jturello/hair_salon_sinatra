@@ -44,7 +44,6 @@ patch('/stylists/:id') do
   @stylist.update!({name: new_name, phone: new_phone, location: new_location})
 
   redirect("/stylists/#{@stylist.id}")
-  # erb(:stylist)
 end
 
 delete('/stylists/:id') do
@@ -60,13 +59,17 @@ get('/stylists/:id/clients/new') do
 end
 
 post('/stylists/:id/clients/new') do
-# binding.pry
+  @page_title = "Stylist Detail Page"
   @stylist = Stylist.find(params['id'].to_i)
   client = Client.new({id: nil, name: params[:name], phone: params[:phone], location: params[:location]})
   client.save()
   @stylist.add_client({:client => client})
-  # binding.pry
 
-  # @stylist_clients = @stylist.clients()
   erb(:stylist)
+end
+
+get('/clients/:id') do
+  @page_title = "Client Detail Page"
+  @client = Client.find(params['id'].to_i)
+  erb(:client)
 end

@@ -136,4 +136,21 @@ describe('stylist update functionality', {:type => :feature}) do
     click_button('Update')
     expect(page).to have_content('Updated Name')
   end
+
+  it('displays the Client Detail page when Add a Client link is clicked') do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    click_link 'Joe Stylist'
+    click_link('Add a Client')
+    fill_in('name', :with => 'Brenda Lee Johnson')
+    click_button('Add Client')
+    click_link('Brenda Lee Johnson')
+    expect(page).to have_css('h1', :text => 'Client Detail Page')
+  end
+end
+
+describe('client detail page - /clients/:id') do
+  it('diplays ')
 end

@@ -1,4 +1,3 @@
-require('pry')
 class Stylist
 #
   attr_reader :name, :id, :location, :phone

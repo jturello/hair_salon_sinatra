@@ -214,6 +214,7 @@ describe(Stylist) do
       client_dude = Client.new({:id => nil, :name => 'Lenard Ripchen'})
       client_dude.save()
       stylist.add_client({:client => client_dude})
+      client_dude = Client.find(client_dude.id)
       expect(stylist.clients()).to eq([client_dude])
     end
 
@@ -226,6 +227,8 @@ describe(Stylist) do
       client2 = Client.new({:id => nil, :name => 'Minny Mouse', :phone => '111-222-9876', :location => 'Disneyland'})
       client2.save()
       stylist.add_client({:client => client2})
+      client1 = Client.find(client1.id)
+      client2 = Client.find(client2.id)
       expect(stylist.clients()).to eq([client1, client2])
     end
 
@@ -238,7 +241,10 @@ describe(Stylist) do
       client2 = Client.new({:id => nil, :name => 'Minny Mouse', :phone => '111-222-9876', :location => 'Disneyland'})
       client2.save()
       stylist.add_client({:client => client2})
-      expect(stylist.clients[0].stylist_id).to eq(@id)
+      client1 = Client.find(client1.id)
+      client2 = Client.find(client2.id)
+# binding.pry
+      expect(stylist.clients[0].stylist_id.to_i).to eq(stylist.id)
     end
   end
 
@@ -252,6 +258,8 @@ describe(Stylist) do
         bones.save()
         stylist.add_client({:client => spock})
         stylist.add_client({:client => bones})
+        bones = Client.find(bones.id)
+        spock = Client.find(spock.id)
         expect(stylist.clients()).to eq([spock, bones])
 
         stylist.remove_client({:client => spock})

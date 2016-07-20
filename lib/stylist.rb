@@ -84,6 +84,7 @@ class Stylist
  def clients()
     @clients = []
     results = DB.exec("SELECT * FROM clients WHERE stylist_id = #{self.id};")
+
     results.each() do |result|
       @clients.push(Client.new({:id => result['id'].to_i, :name => result['name'], :phone => result['phone'], :location => result['location'], :stylist_id => result['stylist_id']}))
     end

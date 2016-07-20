@@ -151,6 +151,22 @@ describe('stylist update functionality', {:type => :feature}) do
   end
 end
 
-describe('client detail page - /clients/:id') do
-  it('diplays ')
+describe('client detail page - /clients/:id', {:type => :feature}) do
+
+  it("let's user update client information") do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    click_link 'Joe Stylist'
+    click_link('Add a Client')
+    fill_in('name', :with => 'Brenda Lee Johnson')
+    click_button('Add Client')
+    click_link('Brenda Lee Johnson')
+    fill_in('new_name', :with => 'Jenny Craig')
+    fill_in('new_phone', :with => '444-1234')
+    fill_in('new_location', :with => 'Baja California')
+    click_button('Update')
+    expect(page).to have_content('Jenny Craig')
+  end
 end

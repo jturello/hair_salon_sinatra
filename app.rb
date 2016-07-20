@@ -31,7 +31,8 @@ end
 
 get('/stylists/:id') do
   @page_title = "Stylist Detail Page"
-  @stylist = Stylist.find(params[:id].to_i)
+# binding.pry
+  @stylist = Stylist.find(params['id'].to_i)
   erb(:stylist)
 end
 
@@ -54,22 +55,26 @@ end
 
 get('/stylists/:id/clients/new') do
   @page_title = "Add Client Page"
-  @stylist = Stylist.find(params[:id].to_i)
+  @stylist = Stylist.find(params['id'].to_i)
   erb(:client_form)
 end
 
 post('/stylists/:id/clients/new') do
   @page_title = "Stylist Detail Page"
   @stylist = Stylist.find(params['id'].to_i)
-  client = Client.new({id: nil, name: params[:name], phone: params[:phone], location: params[:location]})
+  client = Client.new({id: nil, name: params[:name], phone: params[:phone], location: params[:location], stylist_id: params[:stylist_id]})
   client.save()
   @stylist.add_client({:client => client})
 
-  erb(:stylist)
+# binding.pry
+
+  redirect("/stylists/#{@stylist.id}")
 end
 
-get('/clients/:id') do
+get('/stylists/:id/clients/:id') do
   @page_title = "Client Detail Page"
   @client = Client.find(params['id'].to_i)
+  # binding.pry
+  @stylist = Stylist.find(@client.stylist_id.to_i)
   erb(:client)
 end

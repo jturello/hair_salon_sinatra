@@ -9,9 +9,7 @@ class Client
     # if args for :phone or :location not supplied, set to ""
     args[:phone] == nil ? @phone = "" : @phone = args[:phone]
     args[:location] == nil ? @location = "" : @location = args[:location]
-    #stylist_id always set to nil here  to limit access as it's the foreign key in DB,
-    #it is only set programmatically in styist#add_client
-    # @stylist_id = args[:stylist_id]
+    @stylist_id = args[:stylist_id]
   end
 
   def save()
@@ -23,7 +21,7 @@ class Client
     clients = []
     returned_clients = DB.exec("SELECT * FROM clients;")
     returned_clients.each do |client|
-      clients.push(Client.new({:id => client['id'].to_i, :name => client['name'], :phone => client['phone'], :location => client['location']}))
+      clients.push(Client.new({:id => client['id'].to_i, :name => client['name'], :phone => client['phone'], :location => client['location'], :stylist_id => client['stylist_id']}))
     end
     clients
   end

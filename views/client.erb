@@ -20,7 +20,7 @@
 </form>
 
 <h1>Delete This Client</h1>
-<form action="/stylists/<%= @stylist.id() %>/clients/<%= @client.id %>" method="post">
+<form action="/clients/<%= @client.id %>" method="post">
   <input name="_method" type="hidden" value="delete">
   <button type="submit">Delete</button>
 </form>

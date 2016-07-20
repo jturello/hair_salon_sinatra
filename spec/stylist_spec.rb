@@ -243,7 +243,6 @@ describe(Stylist) do
       stylist.add_client({:client => client2})
       client1 = Client.find(client1.id)
       client2 = Client.find(client2.id)
-# binding.pry
       expect(stylist.clients[0].stylist_id.to_i).to eq(stylist.id)
     end
   end

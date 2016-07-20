@@ -9,14 +9,14 @@
   <input name="_method" type="hidden" value="patch">
   <div class="form-group">
     <label for="new_name">Update Name:</label>
-    <input id="new_name" name="new_name" type="text" placeholder="<%= @stylist.name() %>">
+    <input id="new_name" name="new_name" type="text" placeholder="<%= @stylist.name() %>" required>
   </div>
   <div class="form-group">
     <label for="new_phone">Update Phone:</label>
-    <input id="new_phone" name="new_phone" type="text" placeholder="<%= @stylist.phone() %>">
+    <input id="new_phone" name="new_phone" type="text" placeholder="<%= @stylist.phone() %>" required>
   </div>  <div class="form-group">
     <label for="new_location">Update Location:</label>
-    <input id="new_location" name="new_location" type="text" placeholder="<%= @stylist.location() %>">
+    <input id="new_location" name="new_location" type="text" placeholder="<%= @stylist.location() %>" required>
   </div>
 
   <button type="submit">Update</button>

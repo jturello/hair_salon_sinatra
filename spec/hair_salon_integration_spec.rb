@@ -169,4 +169,32 @@ describe('client detail page - /clients/:id', {:type => :feature}) do
     click_button('Update')
     expect(page).to have_content('Jenny Craig')
   end
+
+  it('displays Stylist Detail Page no deleting client') do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    click_link 'Joe Stylist'
+    click_link('Add a Client')
+    fill_in('name', :with => 'Brenda Lee Johnson')
+    click_button('Add Client')
+    click_link('Brenda Lee Johnson')
+    click_button('Delete')
+    expect(page).to have_content('Stylist Detail Page')
+  end
+
+  it("deleted client does not display in stylist's client list") do
+    visit('/')
+    click_link 'Add a Stylist'
+    fill_in 'name', :with => 'Joe Stylist'
+    click_button 'Add'
+    click_link 'Joe Stylist'
+    click_link('Add a Client')
+    fill_in('name', :with => 'Brenda Lee Johnson')
+    click_button('Add Client')
+    click_link('Brenda Lee Johnson')
+    click_button('Delete')
+    expect(page).not_to have_content('Brenda Lee Johnson')
+  end
 end

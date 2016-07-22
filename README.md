@@ -25,11 +25,14 @@ This webpage is hosted at and can be viewed at the following url: [hair-salon-si
 
 ### Database Setup Instructions
 
- * unpack sql dump file...XXXXX
- *
- *
+ * cd into the project root directory 
+ * start the postgres server (in another terminal window) with command: pg_ctl start
+ * enter command: CREATE DATABASE hair_salon
+ * enter command: hair_salon < hair_salon.sql
+ * in another terminal window start the sinatra server (from the project's root directory) with command: ruby app.rb
+ * then enter 'localhost:4567' in your browser's address bar
  or...
- * Run the following SQL commands in terminal...XXXXX
+ * Run the following SQL commands in terminal
  * CREATE DATABASE hair_salon;
  * \c hair_salon
  * CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR NOT NULL, phone VARCHAR, location VARCHAR);
